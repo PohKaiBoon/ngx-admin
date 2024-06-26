@@ -1,7 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { ShowcaseDialogComponent } from './showcase-dialog/showcase-dialog.component';
-import { DialogNamePromptComponent } from './dialog-name-prompt/dialog-name-prompt.component';
+import { DialogPasswordPromptComponent } from './dialog-password-prompt/dialog-password-prompt.component';
 
 @Component({
   selector: 'ngx-dialog',
@@ -29,7 +29,7 @@ export class DialogComponent {
   }
 
   open3() {
-    this.dialogService.open(DialogNamePromptComponent)
+    this.dialogService.open(DialogPasswordPromptComponent)
       .onClose.subscribe(name => name && this.names.push(name));
   }
 

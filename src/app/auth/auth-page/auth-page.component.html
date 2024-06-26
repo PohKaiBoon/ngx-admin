@@ -1,0 +1,166 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card
+      [nbSpinner]="loadingLargeGroup"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="giant"
+    >
+      <nb-card-header>
+        <h1>IotaTrack</h1>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="step-container">
+          <nb-stepper #stepper>
+            <nb-step>
+              <h3>Store Seed Phase</h3>
+              <span>
+                This is a recovery phrase.
+                <b>Please keep this private and safely stored.</b>
+              </span>
+              <div class="mnemonic-container">
+                <div
+                  class="mnemonic-word"
+                  *ngFor="let word of generatedMnemonic; let i = index"
+                >
+                  <span class="number">{{ i + 1 }}. </span>
+                  <span class="word">{{ word }}</span>
+                </div>
+              </div>
+              <nb-alert status="danger" *ngIf="mnemonicError"
+                >Unable to generate mnemonic, please try again later.</nb-alert
+              >
+              <div class="checkbox" *ngIf="!mnemonicError">
+                <nb-checkbox (checkedChange)="toggle($event)"
+                  >I've stored the seed phrase in a secure place.</nb-checkbox
+                >
+                <button nbButton nbStepperNext [disabled]="!checked">
+                  Next
+                </button>
+              </div>
+            </nb-step>
+            <nb-step [stepControl]="secondForm">
+              <h3>Create Account</h3>
+              <nb-alert status="danger" *ngIf="secondForm.errors"
+                >{{ secondForm.errors.error }}
+              </nb-alert>
+              <nb-alert status="danger" *ngIf="hasApiError"
+                >Error: {{ hasApiErrorMessage }}
+              </nb-alert>
+              <form
+                [formGroup]="secondForm"
+                (ngSubmit)="onSecondSubmit()"
+                class="step-container"
+              >
+                <div class="form-group row">
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    placeholder="Enter account name"
+                    formControlName="accountName"
+                  />
+                </div>
+                <div class="form-group row">
+                  <input
+                    type="password"
+                    nbInput
+                    fullWidth
+                    placeholder="Enter password"
+                    formControlName="password"
+                  />
+                </div>
+                <div class="form-group row">
+                  <input
+                    type="password"
+                    nbInput
+                    fullWidth
+                    placeholder="Re-enter password"
+                    formControlName="password2"
+                  />
+                </div>
+                <button nbButton nbStepperPrevious>BACK</button>
+                <button nbButton>CREATE ACCOUNT</button>
+              </form>
+              <!-- <form
+                [formGroup]="secondForm"
+                (ngSubmit)="onSecondSubmit()"
+                class="step-container"
+              >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    placeholder="Enter favorite movie"
+                    class="form-control"
+                    formControlName="secondCtrl"
+                    [ngClass]="{
+                      'form-control-danger':
+                        secondForm.invalid &&
+                        (secondForm.dirty || secondForm.touched)
+                    }"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter favorite movie"
+                    class="form-control"
+                    formControlName="secondCtrl"
+                    [ngClass]="{
+                      'form-control-danger':
+                        secondForm.invalid &&
+                        (secondForm.dirty || secondForm.touched)
+                    }"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter favorite movie"
+                    class="form-control"
+                    formControlName="secondCtrl"
+                    [ngClass]="{
+                      'form-control-danger':
+                        secondForm.invalid &&
+                        (secondForm.dirty || secondForm.touched)
+                    }"
+                  />
+                </div>
+                <button nbButton nbStepperPrevious>prev</button>
+                <button nbButton nbStepperNext>next</button>
+              </form> -->
+            </nb-step>
+            <nb-step [stepControl]="thirdForm">
+              <form
+                [formGroup]="thirdForm"
+                (ngSubmit)="onThirdSubmit()"
+                class="step-container"
+              >
+                <p class="lorem">
+                  Things boom shackalack rhoncus yo. In fo shizzle my nizzle
+                  gangsta platea dictumst. Check it out pot.
+                </p>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    placeholder="Enter something"
+                    class="form-control"
+                    formControlName="thirdCtrl"
+                    [ngClass]="{
+                      'form-control-danger':
+                        thirdForm.invalid &&
+                        (thirdForm.dirty || thirdForm.touched)
+                    }"
+                  />
+                </div>
+                <button nbButton nbStepperPrevious>prev</button>
+                <button nbButton nbStepperNext>Confirm</button>
+              </form>
+            </nb-step>
+            <nb-step [stepControl]="thirdForm" [hidden]="true">
+              <div class="step-container">
+                <h3>Wizard completed!</h3>
+                <button nbButton (click)="stepper.reset()">Try again</button>
+              </div>
+            </nb-step>
+          </nb-stepper>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

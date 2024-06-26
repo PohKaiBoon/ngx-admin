@@ -8,6 +8,7 @@ import {
   NbInputModule,
   NbPopoverModule,
   NbSelectModule,
+  NbSpinnerModule,
   NbTabsetModule,
   NbTooltipModule,
   NbWindowModule,
@@ -21,7 +22,7 @@ import { ModalOverlaysRoutingModule } from './modal-overlays-routing.module';
 import { ModalOverlaysComponent } from './modal-overlays.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ShowcaseDialogComponent } from './dialog/showcase-dialog/showcase-dialog.component';
-import { DialogNamePromptComponent } from './dialog/dialog-name-prompt/dialog-name-prompt.component';
+import { DialogPasswordPromptComponent } from './dialog/dialog-password-prompt/dialog-password-prompt.component';
 import { WindowComponent } from './window/window.component';
 import { WindowFormComponent } from './window/window-form/window-form.component';
 import { ToastrComponent } from './toastr/toastr.component';
@@ -38,7 +39,7 @@ const COMPONENTS = [
   ToastrComponent,
   DialogComponent,
   ShowcaseDialogComponent,
-  DialogNamePromptComponent,
+  DialogPasswordPromptComponent,
   WindowComponent,
   WindowFormComponent,
   PopoversComponent,
@@ -50,7 +51,7 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
   ShowcaseDialogComponent,
-  DialogNamePromptComponent,
+  DialogPasswordPromptComponent,
   WindowFormComponent,
   NgxPopoverCardComponent,
   NgxPopoverFormComponent,

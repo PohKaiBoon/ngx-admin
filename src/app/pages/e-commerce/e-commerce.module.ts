@@ -8,6 +8,7 @@ import {
   NbIconModule,
   NbSelectModule,
   NbListModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -41,7 +42,7 @@ import {
   ECommerceVisitorsStatisticsComponent,
 } from './visitors-analytics/visitors-statistics/visitors-statistics.component';
 import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.component';
-import { ECommerceUserActivityComponent } from './user-activity/user-activity.component';
+import { BatchListComponent } from './batch-list/batch-list.component';
 import { ECommerceProgressSectionComponent } from './progress-section/progress-section.component';
 import { SlideOutComponent } from './slide-out/slide-out.component';
 
@@ -55,7 +56,8 @@ import { EarningCardBackComponent } from './earning-card/back-side/earning-card-
 import { EarningPieChartComponent } from './earning-card/back-side/earning-pie-chart.component';
 import { EarningCardFrontComponent } from './earning-card/front-side/earning-card-front.component';
 import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earning-live-update-chart.component';
-
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { BatchListButtonComponent } from './batch-list-button/batch-list-button.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -71,6 +73,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
+    Ng2SmartTableModule,
   ],
   declarations: [
     ECommerceComponent,
@@ -97,7 +100,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     ECommerceVisitorsAnalyticsChartComponent,
     ECommerceVisitorsStatisticsComponent,
     ECommerceLegendChartComponent,
-    ECommerceUserActivityComponent,
+    BatchListComponent,
     ECommerceProgressSectionComponent,
     SlideOutComponent,
     EarningCardComponent,
@@ -105,6 +108,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     EarningCardBackComponent,
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
+    BatchListButtonComponent
   ],
   providers: [
     CountryOrdersMapService,

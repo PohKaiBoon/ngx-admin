@@ -1,0 +1,45 @@
+{
+  "batchDetails": {
+    "farmInfo": {
+      "farmName": "",
+      "farmAddress": "",
+      "farmerName": "",
+      "farmerContact": "",
+      "latitude": 1.359872,
+      "longitude": 103.9499264
+    },
+    "vineyardDetails": {
+      "vineyardId": "",
+      "grapeVariety": "",
+      "plantingDate": "",
+      "soilType": ""
+    },
+    "cultivationPractices": {
+      "irrigation": "",
+      "fertilizationType": "",
+      "fertilizationQuantity": "",
+      "fertilizationDate": "",
+      "pesticide": "",
+      "pesticideApplicationDate": "",
+      "compliance": "",
+      "pruning": ""
+    },
+    "environmentalConditions": {
+      "weatherDate": "",
+      "temperature": "",
+      "rainfall": "",
+      "humidity": ""
+    },
+    "harvestInfo": {
+      "harvestDate": "",
+      "harvestMethod": "",
+      "laborDetails": "",
+      "yield": ""
+    },
+    "postHarvestHandling": {
+      "remarks": ""
+    }
+  },
+  "address": "snd1qqhs0p0gq332h22xdcydn5zv3zxu29a4lrl3nplvv2ur4g6qnychkhp5ql9",
+  "confirmPassword": "wallet"
+}

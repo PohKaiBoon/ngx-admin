@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>
+    <span>Batches</span>
+    <button nbButton [status]="'success'" hero (click)="openPromptPasswordDialog()">Add New Batch <nb-icon icon="plus"></nb-icon></button>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
