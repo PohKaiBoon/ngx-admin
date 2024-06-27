@@ -25,6 +25,7 @@ import { NewAddress } from "../../../@core/data/general-iota-model";
 import { UserData } from "../../../@core/data/users";
 import { ToastService } from "../../../services/toast-service/toast-service.service";
 import { DateConverter } from "../../../@core/utils/date-converter";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "ngx-batch-list",
@@ -47,7 +48,8 @@ export class BatchListComponent implements OnDestroy, OnInit {
     private http: HttpClient,
     private router: Router,
     private userService: UserData,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private datePipe: DatePipe
   ) {
     this.themeService
       .getJsTheme()
@@ -140,11 +142,11 @@ export class BatchListComponent implements OnDestroy, OnInit {
               },
               error: (err) => {
                 console.log(err);
-                const errorMsg: string = err?.error?.payload?.error;
+                const errorMsg: string = err?.error?.error;
                 this.toastService.showToast(
                   "danger",
                   "Error",
-                  errorMsg.toUpperCase()
+                  errorMsg.replace(/`/g, "").toUpperCase()
                 );
               },
             });
@@ -167,6 +169,16 @@ export class BatchListComponent implements OnDestroy, OnInit {
       .subscribe({
         next: (response: BatchMenu[]) => {
           if (response) {
+            response.forEach((batch) => {
+              batch.dateTimeCreated = this.datePipe.transform(
+                batch.dateTimeCreated,
+                "medium"
+              );
+              batch.dateTimeUpdated = this.datePipe.transform(
+                batch.dateTimeUpdated,
+                "medium"
+              );
+            });
             this.source.load(response);
           }
         },
