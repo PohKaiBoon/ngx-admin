@@ -9,6 +9,8 @@ import {
   NbSelectModule,
   NbListModule,
   NbSpinnerModule,
+  NbAccordionModule,
+  NbStepperModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -58,6 +60,10 @@ import { EarningCardFrontComponent } from './earning-card/front-side/earning-car
 import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earning-live-update-chart.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { BatchListButtonComponent } from './batch-list-button/batch-list-button.component';
+import { BatchDetailsComponent } from '../batch-details/batch-details.component';
+import { NewBatchModule } from '../new-batch/new-batch.module';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { CapitalisePipe } from '../../@core/pipe/capitalise.pipe';
 @NgModule({
   imports: [
     ThemeModule,
@@ -74,6 +80,10 @@ import { BatchListButtonComponent } from './batch-list-button/batch-list-button.
     NgxChartsModule,
     LeafletModule,
     Ng2SmartTableModule,
+    NewBatchModule,
+    GoogleMapsModule,
+    NbAccordionModule,
+    NbStepperModule
   ],
   declarations: [
     ECommerceComponent,
@@ -108,7 +118,9 @@ import { BatchListButtonComponent } from './batch-list-button/batch-list-button.
     EarningCardBackComponent,
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
-    BatchListButtonComponent
+    BatchListButtonComponent,
+    BatchDetailsComponent,
+    CapitalisePipe
   ],
   providers: [
     CountryOrdersMapService,

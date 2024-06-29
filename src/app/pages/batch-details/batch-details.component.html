@@ -1,0 +1,101 @@
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <h6>Batch Details</h6>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="inputFirstName" class="label">Batch ID</label>
+          <div>{{ harvestDetails?.metadata?.governorAddress }}</div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="inputFirstName" class="label">Batch Created Date</label>
+          <div>
+            {{
+              harvestDetails?.metadata?.created | date : "dd MMM yyyy, hh:mm a"
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="inputEmail" class="label">Email</label>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="inputWebsite" class="label">Website</label>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<nb-card size="large" class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-body>
+    <nb-stepper orientation="vertical">
+      <nb-step label="First step">
+        <nb-accordion>
+          <nb-accordion-item *ngFor="let key of batchDetailKeys">
+            <nb-accordion-item-header>
+              {{ key | capitalise }}
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <pre>{{ harvestDetails.batchDetails[key] | json }}</pre>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <button nbButton disabled nbStepperNext>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step label="Second step">
+        <h3>Step content #2</h3>
+        <p class="lorem">
+          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis.
+          Sed vehicula fringilla rutrum. Nullam sed ornare magna. Mauris vitae
+          laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla
+          placerat dui eu sapien pellentesque, eu placerat leo luctus. Cras
+          pharetra blandit fermentum.
+        </p>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step label="Third step">
+        <h3>Step content #3</h3>
+        <p class="lorem">
+          Proin varius accumsan semper. Praesent consequat tincidunt sagittis.
+          Curabitur egestas sem a ipsum bibendum, sit amet fringilla orci
+          efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar
+          magna, quis viverra ex. Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Praesent metus turpis, commodo vel placerat quis,
+          lobortis in ligula.
+        </p>
+        <p class="lorem">
+          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis.
+          Sed vehicula fringilla rutrum. Nullam sed ornare magna. Mauris vitae
+          laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla
+          placerat dui eu sapien pellentesque, eu placerat leo luctus. Cras
+          pharetra blandit fermentum.
+        </p>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton nbStepperNext>next</button>
+      </nb-step>
+      <nb-step label="Fourth step">
+        <h3>Step content #4</h3>
+        <p class="lorem">
+          Proin varius accumsan semper. Praesent consequat tincidunt sagittis.
+          Curabitur egestas sem a ipsum bibendum, sit amet fringilla orci
+          efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar
+          magna, quis viverra ex.
+        </p>
+        <button nbButton nbStepperPrevious>prev</button>
+        <button nbButton disabled nbStepperNext>next</button>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

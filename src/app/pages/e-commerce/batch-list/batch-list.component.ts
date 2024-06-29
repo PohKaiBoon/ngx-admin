@@ -104,7 +104,7 @@ export class BatchListComponent implements OnDestroy, OnInit {
           instance.save.subscribe((row) => {
             console.log(row);
             window.open(
-              `http://localhost:4200/pages/dashboard/${row?.address}`,
+              `http://localhost:4200/pages/details?address=${row?.address}`,
               "_blank"
             );
           });
@@ -172,11 +172,11 @@ export class BatchListComponent implements OnDestroy, OnInit {
             response.forEach((batch) => {
               batch.dateTimeCreated = this.datePipe.transform(
                 batch.dateTimeCreated,
-                "medium"
+                "dd MMM yyyy, hh:mm a"
               );
               batch.dateTimeUpdated = this.datePipe.transform(
                 batch.dateTimeUpdated,
-                "medium"
+                "dd MMM yyyy, hh:mm a"
               );
             });
             this.source.load(response);

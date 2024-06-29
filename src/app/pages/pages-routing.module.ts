@@ -5,7 +5,7 @@ import { PagesComponent } from "./pages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ECommerceComponent } from "./e-commerce/e-commerce.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
-import { CustomerOrderComponent } from "./customer-order/customer-order.component";
+import { BatchDetailsComponent } from "./batch-details/batch-details.component";
 import { AuthGuard } from "../services/auth-service/auth-guard";
 import { NewBatchComponent } from "./new-batch/new-batch.component";
 
@@ -86,8 +86,8 @@ const routes: Routes = [
           ),
       },
       {
-        path: "order",
-        component: CustomerOrderComponent,
+        path: "details",
+        component: BatchDetailsComponent,
       },
       {
         path: "",
