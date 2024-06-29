@@ -21,7 +21,6 @@ import { NewsPostComponent } from './infinite-list/news-post/news-post.component
 import { NewsPostPlaceholderComponent } from './infinite-list/news-post-placeholder/news-post-placeholder.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { NewsService } from './news.service';
-import { CustomerOrderComponent } from '../customer-order/customer-order.component';
 
 @NgModule({
   imports: [
