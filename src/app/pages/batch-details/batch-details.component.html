@@ -38,22 +38,39 @@
 
 <nb-card size="large" class="col-md-12 col-lg-12 col-xxxl-12">
   <nb-card-body>
-    <nb-stepper orientation="vertical">
-      <nb-step label="First step">
-        <nb-accordion>
+    <nb-stepper orientation="horizontal" class="mt-10">
+      <nb-step label="Harvest Details">
+        <nb-accordion class="content">
           <nb-accordion-item *ngFor="let key of batchDetailKeys">
             <nb-accordion-item-header>
               {{ key | capitalise }}
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <pre>{{ harvestDetails.batchDetails[key] | json }}</pre>
+              <div *ngIf="harvestDetails.batchDetails[key] as detail">
+                <div class="row">
+                  <div class="col-sm-6" *ngFor="let subKey of detail | objectKeys; let i = index">
+                    <div class="form-group" *ngIf="i % 2 === 0">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label class="label">{{ subKey | capitalise }}</label>
+                          <div>{{ detail[subKey] }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label class="label">{{ (detail | objectKeys)[i + 1] | capitalise }}</label>
+                          <div>{{ detail[(detail | objectKeys)[i + 1]] }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
-        <button nbButton disabled nbStepperNext>prev</button>
-        <button nbButton nbStepperNext>next</button>
+        <!-- <button nbButton disabled nbStepperNext>prev</button>
+        <button nbButton nbStepperNext>next</button> -->
       </nb-step>
-      <nb-step label="Second step">
+      <!-- <nb-step label="Second step">
         <h3>Step content #2</h3>
         <p class="lorem">
           Curabitur luctus mattis risus nec condimentum. Donec at dui turpis.
@@ -95,7 +112,7 @@
         </p>
         <button nbButton nbStepperPrevious>prev</button>
         <button nbButton disabled nbStepperNext>next</button>
-      </nb-step>
+      </nb-step> -->
     </nb-stepper>
   </nb-card-body>
 </nb-card>

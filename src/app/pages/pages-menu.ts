@@ -220,6 +220,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: '404',
         link: '/pages/miscellaneous/404',
       },
+      {
+        title: '404',
+        link: '/pages/miscellaneous/500',
+      },
     ],
   },
   {

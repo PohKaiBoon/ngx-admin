@@ -64,6 +64,8 @@ import { BatchDetailsComponent } from '../batch-details/batch-details.component'
 import { NewBatchModule } from '../new-batch/new-batch.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CapitalisePipe } from '../../@core/pipe/capitalise.pipe';
+import { ObjectKeysPipe } from '../../@core/pipe/object-keys.pipe';
+import { KeyValuePipe } from '../../@core/pipe/key-value.pipe';
 @NgModule({
   imports: [
     ThemeModule,
@@ -120,7 +122,9 @@ import { CapitalisePipe } from '../../@core/pipe/capitalise.pipe';
     EarningLiveUpdateChartComponent,
     BatchListButtonComponent,
     BatchDetailsComponent,
-    CapitalisePipe
+    CapitalisePipe,
+    ObjectKeysPipe,
+    KeyValuePipe
   ],
   providers: [
     CountryOrdersMapService,

@@ -26,6 +26,7 @@ const routes: Routes = [
       {
         path: "new-batch",
         component: NewBatchComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: "layout",
@@ -88,6 +89,7 @@ const routes: Routes = [
       {
         path: "details",
         component: BatchDetailsComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: "",
