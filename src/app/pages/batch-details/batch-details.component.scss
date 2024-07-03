@@ -17,3 +17,17 @@
 .mt-10 {
   margin-top: 10px;
 }
+
+.test {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}

@@ -17,6 +17,7 @@ export interface BatchDetails {
   environmentalConditions?: EnvironmentalConditions;
   harvestInfo?: HarvestInfo;
   postHarvestHandling?: PostHarvestHandling;
+  remarks?: Remarks;
 }
 
 export interface FarmInfo {
@@ -61,6 +62,10 @@ export interface HarvestInfo {
 }
 
 export interface PostHarvestHandling {
+  remarks?: string;
+}
+
+export interface Remarks {
   remarks?: string;
 }
 

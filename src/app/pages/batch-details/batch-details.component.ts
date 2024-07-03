@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -7,6 +7,8 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { HarvestDetails } from "../../@core/data/batch-model";
+import { NbWindowService } from "@nebular/theme";
+import { ViewTraceabilityInfoOverlayComponent } from "../e-commerce/view-traceability-info-overlay/view-traceability-info-overlay.component";
 
 @Component({
   selector: "ngx-batch-details",
@@ -14,6 +16,11 @@ import { HarvestDetails } from "../../@core/data/batch-model";
   styleUrls: ["./batch-details.component.scss"],
 })
 export class BatchDetailsComponent implements OnInit {
+  @ViewChild("contentTemplate", { static: true })
+  contentTemplate: TemplateRef<any>;
+  @ViewChild("disabledEsc", { read: TemplateRef, static: true })
+  disabledEscTemplate: TemplateRef<HTMLElement>;
+
   firstForm: UntypedFormGroup;
   secondForm: UntypedFormGroup;
   thirdForm: UntypedFormGroup;
@@ -25,7 +32,8 @@ export class BatchDetailsComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private windowService: NbWindowService
   ) {}
 
   ngOnInit() {
@@ -61,7 +69,7 @@ export class BatchDetailsComponent implements OnInit {
         if (this.harvestDetails.batchDetails) {
           this.batchDetailKeys = Object.keys(this.harvestDetails.batchDetails);
         }
-        console.log(this.batchDetailKeys)
+        console.log(this.batchDetailKeys);
       },
       (error) => {
         console.error("Error fetching harvest details", error);
@@ -79,5 +87,12 @@ export class BatchDetailsComponent implements OnInit {
 
   onThirdSubmit() {
     this.thirdForm.markAsDirty();
+  }
+
+  openWindow() {
+    this.windowService.open(ViewTraceabilityInfoOverlayComponent, {
+      title: `View Full Traceability Info`,
+      context: this.harvestDetails,
+    });
   }
 }

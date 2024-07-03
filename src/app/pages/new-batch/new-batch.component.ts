@@ -38,6 +38,7 @@ export class NewBatchComponent implements OnInit {
   postHarvestHandling: UntypedFormGroup;
   environmentalConditions: UntypedFormGroup;
   harvestInfo: UntypedFormGroup;
+  remarks: UntypedFormGroup;
   initial: boolean = false;
 
   apiUrl: string = "http://localhost:3000";
@@ -127,6 +128,10 @@ export class NewBatchComponent implements OnInit {
     this.postHarvestHandling = this.fb.group({
       remarks: [""],
     });
+
+    this.remarks = this.fb.group({
+      remarks: [""],
+    });
   }
 
   onSubmit(): void {
@@ -137,6 +142,8 @@ export class NewBatchComponent implements OnInit {
       environmentalConditions: this.environmentalConditions.value,
       harvestInfo: this.harvestInfo.value,
       postHarvestHandling: this.postHarvestHandling.value,
+      remarks: this.remarks.value,
+      dateTimeSubmitted: new Date().toISOString(),
     };
 
     const payload = {

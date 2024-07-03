@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Account } from "../../@core/data/general-iota-model";
+import { Account, Wallet } from "../../@core/data/general-iota-model";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { UserService } from "../../@core/mock/users.service";
 import { UserData } from "../../@core/data/users";
@@ -15,9 +15,9 @@ export class AuthService {
 
   constructor(private http: HttpClient, private userService: UserData) {}
 
-  private checkWallet(): Promise<Account> {
+  private checkWallet(): Promise<Wallet> {
     return this.http
-      .get<Account>(`${this.apiUrl}/api/v1/checkWallet`)
+      .get<Wallet>(`${this.apiUrl}/api/v1/checkWallet`)
       .toPromise();
   }
 
@@ -31,9 +31,9 @@ export class AuthService {
   public async isAuthenticated(): Promise<boolean> {
     try {
       const data = await this.checkWallet();
-      this.hasAlias = !!data.alias;
-      if (data.alias) {
-        this.userService.setUser(data.alias);
+      this.hasAlias = !!data.account.alias;
+      if (data.account.alias) {
+        this.userService.setUser(data.account.alias);
       }
       return this.hasAlias;
     } catch (error) {

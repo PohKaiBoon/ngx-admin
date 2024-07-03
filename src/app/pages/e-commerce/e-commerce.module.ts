@@ -11,6 +11,8 @@ import {
   NbSpinnerModule,
   NbAccordionModule,
   NbStepperModule,
+  NbAlertModule,
+  NbActionsModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -66,6 +68,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { CapitalisePipe } from '../../@core/pipe/capitalise.pipe';
 import { ObjectKeysPipe } from '../../@core/pipe/object-keys.pipe';
 import { KeyValuePipe } from '../../@core/pipe/key-value.pipe';
+import { ViewTraceabilityInfoOverlayComponent } from './view-traceability-info-overlay/view-traceability-info-overlay.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -85,7 +88,9 @@ import { KeyValuePipe } from '../../@core/pipe/key-value.pipe';
     NewBatchModule,
     GoogleMapsModule,
     NbAccordionModule,
-    NbStepperModule
+    NbStepperModule,
+    NbAlertModule,
+    NbActionsModule
   ],
   declarations: [
     ECommerceComponent,
@@ -124,7 +129,8 @@ import { KeyValuePipe } from '../../@core/pipe/key-value.pipe';
     BatchDetailsComponent,
     CapitalisePipe,
     ObjectKeysPipe,
-    KeyValuePipe
+    KeyValuePipe,
+    ViewTraceabilityInfoOverlayComponent
   ],
   providers: [
     CountryOrdersMapService,

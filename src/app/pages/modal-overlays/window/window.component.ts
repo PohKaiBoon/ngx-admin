@@ -27,7 +27,7 @@ export class WindowComponent {
   }
 
   openWindowForm() {
-    this.windowService.open(WindowFormComponent, { title: `Window` });
+    this.windowService.open(WindowFormComponent, { title: `Window`,  });
   }
 
   openWindowWithoutBackdrop() {

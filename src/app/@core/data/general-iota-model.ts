@@ -8,6 +8,11 @@ export interface Account {
   index: number;
 }
 
+export interface Wallet {
+  account: Account;
+  did: string;
+}
+
 export interface NewAddress {
   address: string;
   waitingRequests: number;

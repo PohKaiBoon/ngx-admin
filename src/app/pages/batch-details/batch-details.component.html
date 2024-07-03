@@ -35,38 +35,45 @@
     </div>
   </nb-card-body>
 </nb-card>
-
-<nb-card size="large" class="col-md-12 col-lg-12 col-xxxl-12">
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <h6>Update Traceability Information</h6>
+  </nb-card-header>
   <nb-card-body>
-    <nb-stepper orientation="horizontal" class="mt-10">
-      <nb-step label="Harvest Details">
-        <nb-accordion class="content">
-          <nb-accordion-item *ngFor="let key of batchDetailKeys">
-            <nb-accordion-item-header>
-              {{ key | capitalise }}
-            </nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <div *ngIf="harvestDetails.batchDetails[key] as detail">
-                <div class="row">
-                  <div class="col-sm-6" *ngFor="let subKey of detail | objectKeys; let i = index">
-                    <div class="form-group" *ngIf="i % 2 === 0">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <label class="label">{{ subKey | capitalise }}</label>
-                          <div>{{ detail[subKey] }}</div>
-                        </div>
-                        <div class="col-sm-6">
-                          <label class="label">{{ (detail | objectKeys)[i + 1] | capitalise }}</label>
-                          <div>{{ detail[(detail | objectKeys)[i + 1]] }}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
-        </nb-accordion>
+    <div class="button-container">
+      <button nbButton status="primary" outline>
+        Add Organic Certification
+      </button>
+      <button nbButton status="primary" outline>
+        Add Processor Information
+      </button>
+      <button nbButton status="primary" outline>
+        Add Retailer Information
+      </button>
+      <button nbButton status="primary" outline>Add Other Information</button>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card size="large" class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <h6>Traceability Information</h6>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="vertical" class="mt-10">
+      <nb-step label="Farmer">
+        <label class="label">{{
+          harvestDetails?.metadata?.updated | date : "dd MMM yyyy, hh:mm a"
+        }}</label>
+        <nb-alert
+          ><div class="test">
+            <div>
+              {{ harvestDetails?.batchDetails?.remarks?.remarks }}
+            </div>
+            <button nbButton status="info" (click)="openWindow()">
+              View Full Info
+            </button>
+          </div></nb-alert
+        >
         <!-- <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton nbStepperNext>next</button> -->
       </nb-step>

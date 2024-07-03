@@ -422,6 +422,30 @@
     </form>
   </div>
 
+  <!-- Remarks Form -->
+  <div class="col-md-12">
+    <form [formGroup]="remarks" class="step-container">
+      <nb-card>
+        <nb-card-header>6. Remarks</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="remarks" class="label">Remarks</label>
+                <textarea
+                  nbInput
+                  fullWidth
+                  id="laborDetails"
+                  formControlName="remarks"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
   <!-- Post-Harvest Handling Form -->
   <div class="col-md-12">
     <form [formGroup]="postHarvestHandling" class="step-container">
@@ -446,6 +470,7 @@
     </form>
   </div>
 </div>
+
 <div class="button">
   <button (click)="onSubmit()" nbButton status="primary">Submit</button>
 </div>
