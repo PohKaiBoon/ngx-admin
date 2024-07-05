@@ -33,7 +33,7 @@ export class AuthService {
       const data = await this.checkWallet();
       this.hasAlias = !!data.account.alias;
       if (data.account.alias) {
-        this.userService.setUser(data.account.alias);
+        this.userService.setUser(data.account.alias, data.did);
       }
       return this.hasAlias;
     } catch (error) {

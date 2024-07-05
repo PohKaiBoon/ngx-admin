@@ -160,7 +160,7 @@ export class BatchListComponent implements OnDestroy, OnInit {
       .post(
         this.apiUrl + "/api/v1/getAllBatches",
         JSON.stringify({
-          alias: this.userService.getUserAlias(),
+          did: this.userService.getDid(),
         }),
         {
           headers,

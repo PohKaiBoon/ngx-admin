@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 export interface User {
   name: string;
   picture: string;
+  did: string;
 }
 
 export interface Contacts {
@@ -16,8 +17,7 @@ export interface RecentUsers extends Contacts {
 
 export abstract class UserData {
   abstract getUsers(): Observable<User>;
-  abstract getContacts(): Observable<Contacts[]>;
-  abstract getRecentUsers(): Observable<RecentUsers[]>;
-  abstract setUser(name: string): void;
+  abstract setUser(name: string, did: string): void;
   abstract getUserAlias(): string;
+  abstract getDid(): string;
 }
