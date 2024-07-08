@@ -7,7 +7,7 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputFirstName" class="label">Batch ID</label>
-          <div>{{ harvestDetails?.metadata?.governorAddress }}</div>
+          <div>{{ batchDetails?.batchId }}</div>
         </div>
       </div>
       <div class="col-sm-6">
@@ -15,13 +15,19 @@
           <label for="inputFirstName" class="label">Batch Created Date</label>
           <div>
             {{
-              harvestDetails?.metadata?.created | date : "dd MMM yyyy, hh:mm a"
+              batchDetails?.metadata?.created | date : "dd MMM yyyy, hh:mm a"
             }}
           </div>
         </div>
       </div>
+      <div></div>
+      <qrcode
+        [qrdata]="qrCode"
+        [width]="200"
+        [errorCorrectionLevel]="'M'"
+      ></qrcode>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-6">
         <div class="form-group">
           <label for="inputEmail" class="label">Email</label>
@@ -32,7 +38,7 @@
           <label for="inputWebsite" class="label">Website</label>
         </div>
       </div>
-    </div>
+    </div> -->
   </nb-card-body>
 </nb-card>
 <nb-card class="col-md-12 col-lg-12 col-xxxl-12">
@@ -41,16 +47,12 @@
   </nb-card-header>
   <nb-card-body>
     <div class="button-container">
-      <button nbButton status="primary" outline>
+      <button nbButton status="primary" [disabled]="showOrganicCertButton()">
         Add Organic Certification
       </button>
-      <button nbButton status="primary" outline>
-        Add Processor Information
-      </button>
-      <button nbButton status="primary" outline>
-        Add Retailer Information
-      </button>
-      <button nbButton status="primary" outline>Add Other Information</button>
+      <button nbButton status="primary">Add Processor Information</button>
+      <button nbButton status="primary">Add Retailer Information</button>
+      <button nbButton status="primary">Add Other Information</button>
     </div>
   </nb-card-body>
 </nb-card>
@@ -62,18 +64,33 @@
     <nb-stepper orientation="vertical" class="mt-10">
       <nb-step label="Farmer">
         <label class="label">{{
-          harvestDetails?.metadata?.updated | date : "dd MMM yyyy, hh:mm a"
+          batchDetails?.metadata?.updated | date : "dd MMM yyyy, hh:mm a"
         }}</label>
         <nb-alert
           ><div class="test">
-            <div>
-              {{ harvestDetails?.batchDetails?.remarks?.remarks }}
+            <div style="max-width: 80%">
+              {{ batchDetails?.harvestDetails?.remarks?.remarks }}
             </div>
             <button nbButton status="info" (click)="openWindow()">
-              View Full Info
+              View Harvest Details
             </button>
           </div></nb-alert
         >
+        <div *ngFor="let info of batchDetails?.traceabilityInfo">
+          <label class="label">{{
+            info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
+          }}</label>
+          <nb-alert>
+            <div class="test">
+              <div style="max-width: 80%">
+                {{ info.activity[0].message }}
+              </div>
+              <button nbButton status="info" (click)="openInfo(info)">
+                View Information
+              </button>
+            </div>
+          </nb-alert>
+        </div>
         <!-- <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton nbStepperNext>next</button> -->
       </nb-step>

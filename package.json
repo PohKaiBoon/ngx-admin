@@ -74,7 +74,8 @@
     "tslib": "^2.3.1",
     "typeface-exo": "0.0.22",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "angularx-qrcode": "15.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.10",

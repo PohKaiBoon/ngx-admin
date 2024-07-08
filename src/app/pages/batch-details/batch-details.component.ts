@@ -6,9 +6,17 @@ import {
   Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { HarvestDetails } from "../../@core/data/batch-model";
-import { NbWindowService } from "@nebular/theme";
+import {
+  BatchDetails,
+  HarvestDetails,
+  TraceabilityInfo,
+} from "../../@core/data/batch-model";
+import { NbDialogService, NbWindowService } from "@nebular/theme";
 import { ViewTraceabilityInfoOverlayComponent } from "../e-commerce/view-traceability-info-overlay/view-traceability-info-overlay.component";
+import { ToastService } from "../../services/toast-service/toast-service.service";
+import { VcDidPromptComponent } from "../modal-overlays/dialog/vc-did-prompt/vc-did-prompt.component";
+import { ShowcaseDialogComponent } from "../modal-overlays/dialog/showcase-dialog/showcase-dialog.component";
+import { OrganicCertifiedDialogComponent } from "../modal-overlays/dialog/organic-certified-dialog/organic-certified-dialog.component";
 
 @Component({
   selector: "ngx-batch-details",
@@ -20,20 +28,24 @@ export class BatchDetailsComponent implements OnInit {
   contentTemplate: TemplateRef<any>;
   @ViewChild("disabledEsc", { read: TemplateRef, static: true })
   disabledEscTemplate: TemplateRef<HTMLElement>;
+  apiUrl: string = "http://localhost:3000";
 
   firstForm: UntypedFormGroup;
   secondForm: UntypedFormGroup;
   thirdForm: UntypedFormGroup;
   address: string;
-  harvestDetails: HarvestDetails;
+  batchDetails: BatchDetails;
   position = { lat: 1.359872, lng: 103.9499264 };
-  batchDetailKeys: string[] = [];
+  harverstDetailsKey: string[] = [];
+  qrCode: string;
 
   constructor(
     private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private windowService: NbWindowService
+    private windowService: NbWindowService,
+    private toastService: ToastService,
+    private dialogService: NbDialogService
   ) {}
 
   ngOnInit() {
@@ -54,6 +66,8 @@ export class BatchDetailsComponent implements OnInit {
     });
 
     this.getHarvestDetails();
+
+    this.qrCode = window.location.href;
   }
 
   getHarvestDetails(): void {
@@ -62,14 +76,15 @@ export class BatchDetailsComponent implements OnInit {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("address", this.address);
 
-    this.http.get<HarvestDetails>(url, { params: queryParams }).subscribe(
-      (data: HarvestDetails) => {
-        this.harvestDetails = data;
-        console.log(this.harvestDetails);
-        if (this.harvestDetails.batchDetails) {
-          this.batchDetailKeys = Object.keys(this.harvestDetails.batchDetails);
+    this.http.get<BatchDetails>(url, { params: queryParams }).subscribe(
+      (data: BatchDetails) => {
+        this.batchDetails = data;
+        if (this.batchDetails.harvestDetails) {
+          this.harverstDetailsKey = Object.keys(
+            this.batchDetails.harvestDetails
+          );
         }
-        console.log(this.batchDetailKeys);
+        console.log(this.harverstDetailsKey);
       },
       (error) => {
         console.error("Error fetching harvest details", error);
@@ -77,22 +92,93 @@ export class BatchDetailsComponent implements OnInit {
     );
   }
 
-  onFirstSubmit() {
-    this.firstForm.markAsDirty();
-  }
-
-  onSecondSubmit() {
-    this.secondForm.markAsDirty();
-  }
-
-  onThirdSubmit() {
-    this.thirdForm.markAsDirty();
-  }
-
   openWindow() {
     this.windowService.open(ViewTraceabilityInfoOverlayComponent, {
       title: `View Full Traceability Info`,
-      context: this.harvestDetails,
+      context: this.batchDetails,
+    });
+  }
+
+  showOrganicCertButton(): boolean {
+    return this.batchDetails?.traceabilityInfo?.some(
+      (info) => info.type === "OrganicCertification"
+    );
+  }
+
+  openInfo(info: TraceabilityInfo): void {
+    console.log(info);
+
+    switch (info?.type) {
+      case "OrganicCertification":
+        this.openVcVerification(info);
+        break;
+
+      default:
+        this.toastService.showToast(
+          "danger",
+          "Error",
+          "An unexpected error has occured. Please try again later.",
+          5000,
+          false
+        );
+        break;
+    }
+  }
+
+  openVcVerification(info: TraceabilityInfo) {
+    this.dialogService.open(VcDidPromptComponent).onClose.subscribe((did) => {
+      if (did) {
+        const headers = { "Content-Type": "application/json" };
+        this.http
+          .post(
+            this.apiUrl + "/api/v1/validateDid",
+            JSON.stringify({
+              did: did,
+            }),
+            { headers }
+          )
+          .subscribe({
+            next: (response) => {
+              const headers = { "Content-Type": "application/json" };
+              this.http
+                .post(
+                  this.apiUrl + "/api/v1/verifyCredential",
+                  JSON.stringify({
+                    issuerDid: did,
+                    credentialJwt: info.vcString,
+                  }),
+                  { headers }
+                )
+                .subscribe({
+                  next: (response) => {
+                    console.log(response);
+                    this.dialogService.open(OrganicCertifiedDialogComponent, {
+                      context: {
+                        title: "Organic Certification Verified",
+                        credential: response,
+                      },
+                    });
+                  },
+                  error: (err) => {
+                    console.log(err);
+                    this.toastService.showToast(
+                      "danger",
+                      "Error",
+                      "Failed to verify credential."
+                    );
+                  },
+                });
+            },
+            error: (err) => {
+              console.log(err);
+              this.toastService.showToast(
+                "danger",
+                "Error",
+                "Invalid DID entered."
+              );
+            },
+          });
+      }
     });
   }
 }

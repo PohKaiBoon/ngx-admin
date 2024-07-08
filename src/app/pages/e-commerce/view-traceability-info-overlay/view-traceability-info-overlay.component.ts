@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NbWindowRef } from "@nebular/theme";
-import { HarvestDetails } from "../../../@core/data/batch-model";
+import { BatchDetails } from "../../../@core/data/batch-model";
 
 @Component({
   selector: "ngx-view-traceability-info-overlay",
@@ -10,14 +10,14 @@ import { HarvestDetails } from "../../../@core/data/batch-model";
 export class ViewTraceabilityInfoOverlayComponent implements OnInit {
   constructor(protected windowRef: NbWindowRef) {}
 
-  harvestDetails: HarvestDetails;
+  batchDetails: any;
   position = { lat: 1.359872, lng: 103.9499264 };
   batchDetailKeys: string[] = [];
 
   ngOnInit(): void {
-    this.harvestDetails = this.windowRef.config.context; // Access the passed data here
-    if (this.harvestDetails) {
-      this.batchDetailKeys = Object.keys(this.harvestDetails.batchDetails);
+    this.batchDetails = this.windowRef.config.context; // Access the passed data here
+    if (this.batchDetails) {
+      this.batchDetailKeys = Object.keys(this.batchDetails.harvestDetails);
     }
   }
 

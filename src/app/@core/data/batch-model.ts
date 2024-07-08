@@ -5,12 +5,15 @@ export interface BatchMenu {
   dateTimeUpdated: string;
 }
 
-export interface HarvestDetails {
-  batchDetails?: BatchDetails;
+export interface BatchDetails {
+  harvestDetails?: HarvestDetails;
   metadata?: Metadata;
+  activity?: Activity[];
+  batchId?: string;
+  traceabilityInfo: TraceabilityInfo[];
 }
 
-export interface BatchDetails {
+export interface HarvestDetails {
   farmInfo?: FarmInfo;
   vineyardDetails?: VineyardDetails;
   cultivationPractices?: CultivationPractices;
@@ -74,4 +77,21 @@ export interface Metadata {
   updated?: string;
   governorAddress?: string;
   stateControllerAddress?: string;
+}
+
+export interface Activity {
+  message?: string;
+  dateTime?: string;
+}
+
+export interface TraceabilityInfo {
+  type?: string;
+  vcString?: string;
+  dateTime?: string;
+  activity?: Activity[];
+}
+
+export interface Activity {
+  message?: string;
+  dateTime?: string;
 }

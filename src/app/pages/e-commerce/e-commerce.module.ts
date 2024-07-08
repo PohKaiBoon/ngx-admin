@@ -69,6 +69,7 @@ import { CapitalisePipe } from '../../@core/pipe/capitalise.pipe';
 import { ObjectKeysPipe } from '../../@core/pipe/object-keys.pipe';
 import { KeyValuePipe } from '../../@core/pipe/key-value.pipe';
 import { ViewTraceabilityInfoOverlayComponent } from './view-traceability-info-overlay/view-traceability-info-overlay.component';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   imports: [
     ThemeModule,
@@ -90,7 +91,8 @@ import { ViewTraceabilityInfoOverlayComponent } from './view-traceability-info-o
     NbAccordionModule,
     NbStepperModule,
     NbAlertModule,
-    NbActionsModule
+    NbActionsModule,
+    QRCodeModule
   ],
   declarations: [
     ECommerceComponent,

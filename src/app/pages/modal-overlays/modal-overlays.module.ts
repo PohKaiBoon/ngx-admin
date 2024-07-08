@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  NbAlertModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
@@ -32,6 +33,8 @@ import {
   NgxPopoverTabsComponent,
 } from './popovers/popover-examples.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { VcDidPromptComponent } from './dialog/vc-did-prompt/vc-did-prompt.component';
+import { OrganicCertifiedDialogComponent } from './dialog/organic-certified-dialog/organic-certified-dialog.component';
 
 
 const COMPONENTS = [
@@ -40,6 +43,7 @@ const COMPONENTS = [
   DialogComponent,
   ShowcaseDialogComponent,
   DialogPasswordPromptComponent,
+  VcDidPromptComponent,
   WindowComponent,
   WindowFormComponent,
   PopoversComponent,
@@ -47,15 +51,18 @@ const COMPONENTS = [
   NgxPopoverFormComponent,
   NgxPopoverTabsComponent,
   TooltipComponent,
+  OrganicCertifiedDialogComponent
 ];
 
 const ENTRY_COMPONENTS = [
   ShowcaseDialogComponent,
   DialogPasswordPromptComponent,
+  VcDidPromptComponent,
   WindowFormComponent,
   NgxPopoverCardComponent,
   NgxPopoverFormComponent,
   NgxPopoverTabsComponent,
+  OrganicCertifiedDialogComponent
 ];
 
 const MODULES = [
@@ -72,6 +79,7 @@ const MODULES = [
   NbInputModule,
   NbSelectModule,
   NbTooltipModule,
+  NbAlertModule
 ];
 
 const SERVICES = [

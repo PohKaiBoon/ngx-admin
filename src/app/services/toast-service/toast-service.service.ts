@@ -58,12 +58,18 @@ export class ToastService {
     this.showToast(this.status, this.title, this.content);
   }
 
-  showToast(type: NbComponentStatus, title: string, body: string, duration? : number) {
+  showToast(
+    type: NbComponentStatus,
+    title: string,
+    body: string,
+    duration?: number,
+    hasIcon?: boolean
+  ) {
     const config = {
       status: type,
       destroyByClick: this.destroyByClick,
       duration: duration ?? this.duration,
-      hasIcon: this.hasIcon,
+      hasIcon: hasIcon,
       position: this.position,
       preventDuplicates: this.preventDuplicates,
     };

@@ -10,6 +10,7 @@ import { HttpClient } from "@angular/common/http";
 import { NbDialogService } from "@nebular/theme";
 import { ToastService } from "../../services/toast-service/toast-service.service";
 import { DialogPasswordPromptComponent } from "../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
+import { UserData } from "../../@core/data/users";
 
 @Component({
   selector: "ngx-new-batch",
@@ -24,7 +25,8 @@ export class NewBatchComponent implements OnInit {
     private dialogService: NbDialogService,
     private http: HttpClient,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private userService: UserData
   ) {}
   latitude: number;
   longitude: number;
@@ -147,7 +149,8 @@ export class NewBatchComponent implements OnInit {
     };
 
     const payload = {
-      batchDetails: formData,
+      did: this.userService.getDid(),
+      harvestDetails: formData,
       address: this.newId,
       password: "",
     };

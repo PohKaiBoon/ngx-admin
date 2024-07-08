@@ -1,0 +1,22 @@
+<nb-card>
+  <nb-card-header>Verification of Credential</nb-card-header>
+  <nb-card-body>
+    <nb-alert>
+      <strong>Heads up!</strong> Please enter the certifier's DID for verification of organic certification.
+    </nb-alert>
+    <input
+      #name
+      nbInput
+      placeholder="Certifier's DID"
+      fullWidth
+    />
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="cancel" nbButton status="danger" (click)="cancel()">
+      Cancel
+    </button>
+    <button nbButton status="primary" (click)="submit(name.value)">
+      Submit
+    </button>
+  </nb-card-footer>
+</nb-card>
