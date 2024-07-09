@@ -16,7 +16,7 @@ import {
 } from "../../../@core/data/user-activity";
 import { SmartTableData } from "../../../@core/data/smart-table";
 import { LocalDataSource, ViewCell } from "ng2-smart-table";
-import { BatchMenu } from "../../../@core/data/batch-model";
+import { Activities, BatchMenu } from "../../../@core/data/batch-model";
 import { BatchListButtonComponent } from "../batch-list-button/batch-list-button.component";
 import { DialogPasswordPromptComponent } from "../../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
 import { HttpClient, HttpParams } from "@angular/common/http";
@@ -40,6 +40,7 @@ export class BatchListComponent implements OnDestroy, OnInit {
   types = ["week", "month", "year"];
   currentTheme: string;
   source: LocalDataSource = new LocalDataSource();
+  activitySource: LocalDataSource = new LocalDataSource();
   apiUrl: string = "http://localhost:3000";
 
   constructor(
@@ -61,6 +62,7 @@ export class BatchListComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.fetchAllBatches();
+    this.fetchAllActivities();
   }
 
   ngOnDestroy() {
@@ -102,13 +104,48 @@ export class BatchListComponent implements OnDestroy, OnInit {
         renderComponent: BatchListButtonComponent,
         onComponentInitFunction(instance) {
           instance.save.subscribe((row) => {
-            console.log(row);
             window.open(
               `http://localhost:4200/pages/details?address=${row?.address}`,
               "_blank"
             );
           });
         },
+      },
+    },
+  };
+
+  activitySettings = {
+    actions: {
+      delete: false,
+      add: false,
+      edit: false,
+    },
+    columns: {
+      batchAddress: {
+        title: "Batch ID",
+        type: "string",
+        sort: false,
+      },
+      message: {
+        title: "Activity",
+        type: "string",
+        sort: false,
+        valuePrepareFunction: (cell, row) => {
+          return row.activity[0].message;
+        },
+      },
+      dateTime: {
+        title: "Date Created",
+        type: "string",
+        sort: false,
+        valuePrepareFunction: (cell, row) => {
+          return row.activity[0].dateTime;
+        },
+      },
+      type: {
+        title: "Activity Type",
+        type: "string",
+        sort: false,
       },
     },
   };
@@ -180,6 +217,37 @@ export class BatchListComponent implements OnDestroy, OnInit {
               );
             });
             this.source.load(response);
+          }
+        },
+        error: (err) => {},
+      });
+  }
+
+  fetchAllActivities() {
+    const headers = { "Content-Type": "application/json" };
+    this.http
+      .post(
+        this.apiUrl + "/api/v1/getAllActivities",
+        JSON.stringify({
+          did: this.userService.getDid(),
+        }),
+        {
+          headers,
+        }
+      )
+      .subscribe({
+        next: (response: Activities[]) => {
+          if (response) {
+            response.forEach((activity) => {
+              activity.activity.forEach((batch) => {
+                batch.dateTime = this.datePipe.transform(
+                  batch.dateTime,
+                  "dd MMM yyyy, hh:mm a"
+                );
+              });
+            });
+            console.log(response);
+            this.activitySource.load(response);
           }
         },
         error: (err) => {},

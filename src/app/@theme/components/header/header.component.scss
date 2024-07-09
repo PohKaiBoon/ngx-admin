@@ -21,6 +21,7 @@
 
   nb-user {
     cursor: pointer;
+    
   }
 
   ::ng-deep nb-search button {
@@ -67,5 +68,9 @@
     nb-select {
       display: none;
     }
+  }
+
+  button {
+    text-transform: lowercase;
   }
 }

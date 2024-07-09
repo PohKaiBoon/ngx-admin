@@ -5,6 +5,12 @@ export interface BatchMenu {
   dateTimeUpdated: string;
 }
 
+export interface Activities {
+  batchAddress?: string;
+  activity?: Activity[];
+  type?: string;
+}
+
 export interface BatchDetails {
   harvestDetails?: HarvestDetails;
   metadata?: Metadata;
