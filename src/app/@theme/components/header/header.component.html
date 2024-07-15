@@ -5,6 +5,20 @@
     </a>
     <a class="logo" href="#" (click)="navigateHome()">IotaTrack</a>
   </div>
+  <nb-form-field>
+    <input
+      #input
+      type="text"
+      nbInput
+      fullWidth
+      fieldSize="medium"
+      placeholder="Search..."
+      [status]="status"
+    />
+    <button nbSuffix nbButton ghost (click)="callDetails(input)">
+      <nb-icon [icon]="'search'" pack="eva"> </nb-icon>
+    </button>
+  </nb-form-field>
 </div>
 
 <div class="header-container">

@@ -1,0 +1,205 @@
+<div class="row">
+  <!-- Farm Info Form -->
+  <div class="col-md-12">
+    <form [formGroup]="certificateForm" (ngSubmit)="onSubmit()">
+      <nb-card>
+        <nb-card-header>Certificate Details</nb-card-header>
+        <nb-card-body>
+          <div formGroupName="entityCertified">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="entityDid" class="label">Entity DID</label>
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    id="entityDid"
+                    formControlName="entityDid"
+                    (blur)="onBlur()"
+                    [status]="
+                      certificateForm.get('entityCertified.entityDid')
+                        .invalid &&
+                      certificateForm.get('entityCertified.entityDid').touched
+                        ? 'danger'
+                        : 'basic'
+                    "
+                  />
+                  <div
+                    *ngIf="
+                      certificateForm.get('entityCertified.entityDid')
+                        .touched &&
+                      certificateForm.get('entityCertified.entityDid').errors
+                    "
+                    class="item text-danger"
+                  >
+                    <div
+                      *ngIf="
+                        certificateForm.get('entityCertified.entityDid').errors
+                          .required
+                      "
+                    >
+                      DID is required.
+                    </div>
+                    <div
+                      *ngIf="
+                        certificateForm.get('entityCertified.entityDid').errors
+                          .invalidCertifier ||
+                        certificateForm.get('entityCertified.entityDid').invalid
+                      "
+                    >
+                      DID is invalid.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="entityName" class="label"
+                    >Entity Certified Name</label
+                  >
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    id="entityName"
+                    formControlName="name"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="entityAddress" class="label"
+                    >Entity Certified Address</label
+                  >
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    id="entityAddress"
+                    formControlName="address"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="certificationStandard" class="label"
+                  >Certification Standard</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="certificationStandard"
+                  formControlName="certificationStandard"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="certificateType" class="label"
+                  >Certificate Type</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="certificateType"
+                  formControlName="certificateType"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="lastInspectionDate" class="label"
+                  >Last Inspection Date</label
+                >
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="lastInspectionDate"
+                  formControlName="lastInspectionDate"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="anniversaryDate" class="label"
+                  >Anniversary Date</label
+                >
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="anniversaryDate"
+                  formControlName="anniversaryDate"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="scope" class="label">Scope</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="scope"
+                  formControlName="scope"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div formGroupName="authorizedBy">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="authorizedName" class="label"
+                    >Authorized By Name</label
+                  >
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    id="authorizedName"
+                    formControlName="name"
+                  />
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="authorizedTitle" class="label"
+                    >Authorized By Title</label
+                  >
+                  <input
+                    type="text"
+                    nbInput
+                    fullWidth
+                    id="authorizedTitle"
+                    formControlName="title"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+    <div class="button">
+      <button (click)="onSubmit()" nbButton status="primary">Submit</button>
+    </div>
+  </div>
+</div>

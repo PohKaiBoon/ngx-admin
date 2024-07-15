@@ -13,6 +13,9 @@ import {
   NbIconModule,
   NbThemeModule,
   NbPopoverModule,
+  NbFormFieldModule,
+  NbCardModule,
+  NbInputModule,
 } from "@nebular/theme";
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { NbSecurityModule } from "@nebular/security";
@@ -39,6 +42,7 @@ import { DEFAULT_THEME } from "./styles/theme.default";
 import { COSMIC_THEME } from "./styles/theme.cosmic";
 import { CORPORATE_THEME } from "./styles/theme.corporate";
 import { DARK_THEME } from "./styles/theme.dark";
+import { ReactiveFormsModule } from "@angular/forms";
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -54,6 +58,10 @@ const NB_MODULES = [
   NbIconModule,
   NbEvaIconsModule,
   NbPopoverModule,
+  NbFormFieldModule,
+  NbCardModule,
+  NbInputModule,
+  ReactiveFormsModule,
 ];
 const COMPONENTS = [
   HeaderComponent,

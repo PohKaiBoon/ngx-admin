@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { NbAuthModule } from "@nebular/auth";
 import { NewBatchModule } from "./new-batch/new-batch.module";
 import { GoogleMapsModule } from "@angular/google-maps";
+import { IssueCertModule } from "./issue-cert/issue-cert.module";
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { GoogleMapsModule } from "@angular/google-maps";
     NbIconModule,
     NbAuthModule,
     NewBatchModule,
+    IssueCertModule,
     GoogleMapsModule,
     NbAccordionModule,
   ],

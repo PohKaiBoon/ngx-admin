@@ -11,13 +11,14 @@ import { NbDialogService } from "@nebular/theme";
 import { ToastService } from "../../services/toast-service/toast-service.service";
 import { DialogPasswordPromptComponent } from "../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
 import { UserData } from "../../@core/data/users";
+import { distinctUntilChanged } from "rxjs/operators";
 
 @Component({
-  selector: "ngx-new-batch",
-  templateUrl: "./new-batch.component.html",
-  styleUrls: ["./new-batch.component.scss"],
+  selector: "ngx-processor-information",
+  templateUrl: "./processor-information.component.html",
+  styleUrls: ["./processor-information.component.scss"],
 })
-export class NewBatchComponent implements OnInit {
+export class ProcessorInformationComponent implements OnInit {
   constructor(
     private geolocationService: GeolocationService,
     private route: ActivatedRoute,
@@ -34,14 +35,19 @@ export class NewBatchComponent implements OnInit {
   prevLongitude: number;
   isLatLongSameAsPrevious: boolean = false;
   newId: string = "";
-  farmInfo: UntypedFormGroup;
-  cultivationPractices: UntypedFormGroup;
-  vineyardDetails: UntypedFormGroup;
-  postHarvestHandling: UntypedFormGroup;
-  environmentalConditions: UntypedFormGroup;
-  harvestInfo: UntypedFormGroup;
+  processorInfo: UntypedFormGroup;
+  wineProductionForm: UntypedFormGroup;
+  receivedDeliveryForm: UntypedFormGroup;
   remarks: UntypedFormGroup;
+
   initial: boolean = false;
+  shouldShowNextSection: boolean = false;
+  shouldShowReceivedDeliveryForm: boolean = false;
+
+  typeObjects: { type: string; text: string }[] = [
+    { type: "ReceivedDelivery", text: "Received Delivery" },
+    { type: "ProcessingInformation", text: "Processing Information" },
+  ];
 
   apiUrl: string = "http://localhost:3000";
 
@@ -52,6 +58,22 @@ export class NewBatchComponent implements OnInit {
     });
 
     this.createFormControls();
+    this.createSubscriptions();
+  }
+
+  createSubscriptions(): void {
+    this.processorInfo.controls.type.valueChanges
+      .pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        if (value && !this.shouldShowNextSection) {
+          this.shouldShowNextSection = true;
+        }
+        if (value === "ReceivedDelivery") {
+          this.shouldShowReceivedDeliveryForm = true;
+        } else {
+          this.shouldShowReceivedDeliveryForm = false;
+        }
+      });
   }
 
   getUserLocation(): void {
@@ -63,8 +85,8 @@ export class NewBatchComponent implements OnInit {
 
         console.log(`Latitude: ${this.latitude}, Longitude: ${this.longitude}`);
 
-        this.farmInfo.controls.latitude.patchValue(this.latitude);
-        this.farmInfo.controls.longitude.patchValue(this.longitude);
+        this.processorInfo.controls.latitude.patchValue(this.latitude);
+        this.processorInfo.controls.longitude.patchValue(this.longitude);
 
         this.prevLatitude = this.latitude;
         this.prevLongitude = this.longitude;
@@ -86,74 +108,69 @@ export class NewBatchComponent implements OnInit {
   }
 
   createFormControls(): void {
-    this.farmInfo = this.fb.group({
-      farmName: [""],
-      farmAddress: ["", Validators.required],
-      farmerName: [""],
-      farmerContact: [""],
+    this.processorInfo = this.fb.group({
+      processorName: [""],
+      processorAddress: ["", Validators.required],
+      nameInCharge: [""],
+      nameInChargeContact: [""],
       latitude: [{ value: "", disabled: true }],
       longitude: [{ value: "", disabled: true }],
+      type: [""],
     });
 
-    this.vineyardDetails = this.fb.group({
-      vineyardId: [""],
-      grapeVariety: [""],
-      plantingDate: [""],
-      soilType: [""],
+    this.receivedDeliveryForm = this.fb.group({
+      dateReceived: ["", Validators.required],
+      quantityReceived: ["", Validators.required],
+      condition: ["", Validators.required],
+      temperatureUponArrival: ["", Validators.required],
+      truckId: ["", Validators.required],
+      driverName: ["", Validators.required],
+      licensePlate: ["", Validators.required],
     });
 
-    this.cultivationPractices = this.fb.group({
-      irrigation: [""],
-      fertilizationType: [""],
-      fertilizationQuantity: [""],
-      fertilizationDate: [""],
-      pesticide: [""],
-      pesticideApplicationDate: [""],
-      compliance: [""],
-      pruning: [""],
-    });
-
-    this.environmentalConditions = this.fb.group({
-      weatherDate: [""],
-      temperature: [""],
-      rainfall: [""],
-      humidity: [""],
-    });
-
-    this.harvestInfo = this.fb.group({
-      harvestDate: [""],
-      harvestMethod: [""],
-      laborDetails: [""],
-      yield: [""],
-    });
-
-    this.postHarvestHandling = this.fb.group({
-      remarks: [""],
-    });
-
-    this.remarks = this.fb.group({
-      remarks: [""],
+    this.wineProductionForm = this.fb.group({
+      crushGrapes: this.fb.group({
+        dateCrushed: ["", Validators.required],
+        method: ["", Validators.required],
+        remarks: ["", Validators.required],
+      }),
+      fermentation: this.fb.group({
+        startDate: ["", Validators.required],
+        endDate: ["", Validators.required],
+        temperatureRange: ["", Validators.required],
+        sugarLevel: ["", Validators.required],
+        yeastType: ["", Validators.required],
+        carbonDioxideManagement: ["", Validators.required],
+        remarks: ["", Validators.required],
+      }),
+      aging: this.fb.group({
+        startDate: ["", Validators.required],
+        endDate: ["", Validators.required],
+        containerType: ["", Validators.required],
+        temperatureRange: ["", Validators.required],
+        humidityLevel: ["", Validators.required],
+        remarks: ["", Validators.required],
+      }),
     });
   }
 
   onSubmit(): void {
     const formData = {
-      farmInfo: this.farmInfo.getRawValue(),
-      vineyardDetails: this.vineyardDetails.value,
-      cultivationPractices: this.cultivationPractices.value,
-      environmentalConditions: this.environmentalConditions.value,
-      harvestInfo: this.harvestInfo.value,
-      postHarvestHandling: this.postHarvestHandling.value,
+      processorInfo: this.processorInfo.getRawValue(),
+      receivedDeliveryForm: this.receivedDeliveryForm.value,
       remarks: this.remarks.value,
       dateTimeSubmitted: new Date().toISOString(),
     };
 
     const payload = {
-      did: this.userService.getDid(),
-      harvestDetails: formData,
+      issuerDid: this.userService.getDid(),
+      processorDetails: formData,
+      batchAddress: this.newId,
       password: "",
     };
 
+    console.log(payload);
+    return;
     this.dialogService
       .open(DialogPasswordPromptComponent)
       .onClose.subscribe((password) => {
@@ -162,7 +179,7 @@ export class NewBatchComponent implements OnInit {
           const headers = { "Content-Type": "application/json" };
           this.http
             .post(
-              this.apiUrl + "/api/v1/submitBatch",
+              this.apiUrl + "/api/v1/processorTraceabilityInfo",
               JSON.stringify(payload),
               { headers }
             )

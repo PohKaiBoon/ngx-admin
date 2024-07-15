@@ -1,0 +1,513 @@
+<div class="row">
+  <!-- Processor Info Form -->
+  <div class="col-md-12">
+    <form [formGroup]="processorInfo" class="step-container">
+      <nb-card>
+        <nb-card-header>1. Processor Info</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="batchId" class="label">Batch ID</label>
+                <p>{{ newId }}</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="type" class="label"
+                  >Traceability Information Type</label
+                >
+                <div>
+                  <nb-select
+                    [placeholder]="'Select'"
+                    size="small"
+                    formControlName="type"
+                    [fullWidth]="true"
+                  >
+                    <nb-option value="ReceivedDelivery"
+                      >Received Delivery</nb-option
+                    >
+                    <nb-option value="ProcessingInformation"
+                      >Processing Information</nb-option
+                    >
+                  </nb-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="processorName" class="label">Processor Name</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="processorName"
+                  formControlName="processorName"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="processorAddress" class="label"
+                  >Processor Address</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="processorAddress"
+                  formControlName="processorAddress"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="latitude" class="label">Latitude</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="latitude"
+                  formControlName="latitude"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="longitude" class="label">Longitude</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="longitude"
+                  formControlName="longitude"
+                  disabled="true"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="nameInCharge" class="label">Name in-charge</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="nameInCharge"
+                  formControlName="nameInCharge"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="nameInChargeContact" class="label"
+                  >Name in-charge Contact</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="nameInChargeContact"
+                  formControlName="nameInChargeContact"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <button (click)="getUserLocation()" nbButton>
+                    Update Coordinates
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <nb-alert status="warning" *ngIf="isLatLongSameAsPrevious">
+                    Location updated. No changes detected.
+                  </nb-alert>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <!-- Received Delivery Details Form -->
+  <div
+    class="col-md-12"
+    *ngIf="shouldShowNextSection && shouldShowReceivedDeliveryForm"
+  >
+    <form [formGroup]="receivedDeliveryForm" class="step-container">
+      <nb-card>
+        <nb-card-header>2. Received Delivery Details</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="quantityReceived" class="label"
+                  >Quantity Received</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="quantityReceived"
+                  formControlName="quantityReceived"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="condition" class="label">Condition</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="condition"
+                  formControlName="condition"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="temperatureUponArrival" class="label"
+                  >Temperature Upon Arrival</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="temperatureUponArrival"
+                  formControlName="temperatureUponArrival"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="truckId" class="label">Truck ID</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="truckId"
+                  formControlName="truckId"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="truckId" class="label">Truck ID</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="truckId"
+                  formControlName="truckId"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="driverName" class="label">Driver Name</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="driverName"
+                  formControlName="driverName"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="licensePlate" class="label">License Plate</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="licensePlate"
+                  formControlName="licensePlate"
+                />
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <div
+    class="col-md-12"
+    *ngIf="shouldShowNextSection && !shouldShowReceivedDeliveryForm"
+  >
+    <form
+      [formGroup]="wineProductionForm"
+      (ngSubmit)="onSubmit()"
+      class="step-container"
+    >
+      <nb-card>
+        <nb-card-header>Crush Grapes</nb-card-header>
+        <nb-card-body [formGroupName]="'crushGrapes'">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="dateCrushed" class="label">Date Crushed</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="dateCrushed"
+                  formControlName="dateCrushed"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="method" class="label">Method</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="method"
+                  formControlName="method"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="remarksCrush" class="label">Remarks</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="remarksCrush"
+                  formControlName="remarks"
+                />
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Fermentation</nb-card-header>
+        <nb-card-body [formGroupName]="'fermentation'">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="startDate" class="label">Start Date</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="startDate"
+                  formControlName="startDate"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="endDate" class="label">End Date</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="endDate"
+                  formControlName="endDate"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="temperatureRangeFermentation" class="label"
+                  >Temperature Range</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="temperatureRangeFermentation"
+                  formControlName="temperatureRange"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="sugarLevel" class="label">Sugar Level</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="sugarLevel"
+                  formControlName="sugarLevel"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="yeastType" class="label">Yeast Type</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="yeastType"
+                  formControlName="yeastType"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="carbonDioxideManagement" class="label"
+                  >Carbon Dioxide Management</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="carbonDioxideManagement"
+                  formControlName="carbonDioxideManagement"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="remarksFermentation" class="label">Remarks</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="remarksFermentation"
+                  formControlName="remarks"
+                />
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Aging</nb-card-header>
+        <nb-card-body [formGroupName]="'aging'">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="startDateAging" class="label">Start Date</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="startDateAging"
+                  formControlName="startDate"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="endDateAging" class="label">End Date</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="endDateAging"
+                  formControlName="endDate"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="containerType" class="label">Container Type</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="containerType"
+                  formControlName="containerType"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="temperatureRangeAging" class="label"
+                  >Temperature Range</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="temperatureRangeAging"
+                  formControlName="temperatureRange"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="humidityLevel" class="label">Humidity Level</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="humidityLevel"
+                  formControlName="humidityLevel"
+                />
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="remarksAging" class="label">Remarks</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="remarksAging"
+                  formControlName="remarks"
+                />
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <!-- Remarks Form -->
+  <div class="col-md-12" *ngIf="shouldShowNextSection">
+    <form [formGroup]="remarks" class="step-container">
+      <nb-card>
+        <nb-card-header>3. Remarks</nb-card-header>
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="remarks" class="label">Remarks</label>
+                <textarea
+                  nbInput
+                  fullWidth
+                  id="laborDetails"
+                  formControlName="remarks"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+</div>
+<div class="button">
+  <button nbButton status="danger" style="margin-right: 20px">Clear</button>
+  <button (click)="onSubmit()" nbButton status="primary">Submit</button>
+</div>

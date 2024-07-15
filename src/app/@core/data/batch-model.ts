@@ -95,6 +95,7 @@ export interface TraceabilityInfo {
   vcString?: string;
   dateTime?: string;
   activity?: Activity[];
+  issuer?: string
 }
 
 export interface Activity {

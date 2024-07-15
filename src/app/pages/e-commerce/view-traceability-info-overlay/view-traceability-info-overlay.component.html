@@ -4,23 +4,50 @@
       {{ key | capitalise }}
     </nb-accordion-item-header>
     <nb-accordion-item-body>
-      <div *ngIf="batchDetails.harvestDetails[key] as detail">
-        <div class="row">
-          <div
-            class="col-sm-6"
-            *ngFor="let subKey of detail | objectKeys; let i = index"
-          >
-            <div class="form-group" *ngIf="i % 2 === 0">
-              <div class="row">
-                <div class="col-sm-6">
-                  <label class="label">{{ subKey | capitalise }}</label>
-                  <div>{{ detail[subKey] }}</div>
+      <div *ngIf="batchDetails?.harvestDetails">
+        <div *ngIf="batchDetails?.harvestDetails[key] as detail">
+          <div class="row">
+            <div
+              class="col-sm-6"
+              *ngFor="let subKey of detail | objectKeys; let i = index"
+            >
+              <div class="form-group" *ngIf="i % 2 === 0">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="label">{{ subKey | capitalise }}</label>
+                    <div>{{ detail[subKey] }}</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="label">{{
+                      (detail | objectKeys)[i + 1] | capitalise
+                    }}</label>
+                    <div>{{ detail[(detail | objectKeys)[i + 1]] }}</div>
+                  </div>
                 </div>
-                <div class="col-sm-6">
-                  <label class="label">{{
-                    (detail | objectKeys)[i + 1] | capitalise
-                  }}</label>
-                  <div>{{ detail[(detail | objectKeys)[i + 1]] }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="batchDetails?.credentialSubject">
+        <div *ngIf="batchDetails?.credentialSubject[key] as detail">
+          <div class="row">
+            <div
+              class="col-sm-6"
+              *ngFor="let subKey of detail | objectKeys; let i = index"
+            >
+              <div class="form-group" *ngIf="i % 2 === 0">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label class="label">{{ subKey | capitalise }}</label>
+                    <div>{{ detail[subKey] }}</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="label">{{
+                      (detail | objectKeys)[i + 1] | capitalise
+                    }}</label>
+                    <div>{{ detail[(detail | objectKeys)[i + 1]] }}</div>
+                  </div>
                 </div>
               </div>
             </div>

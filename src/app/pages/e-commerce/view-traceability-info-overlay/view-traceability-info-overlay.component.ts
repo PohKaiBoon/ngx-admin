@@ -11,14 +11,24 @@ export class ViewTraceabilityInfoOverlayComponent implements OnInit {
   constructor(protected windowRef: NbWindowRef) {}
 
   batchDetails: any;
-  position = { lat: 1.359872, lng: 103.9499264 };
   batchDetailKeys: string[] = [];
 
   ngOnInit(): void {
     this.batchDetails = this.windowRef.config.context; // Access the passed data here
-    if (this.batchDetails) {
-      this.batchDetailKeys = Object.keys(this.batchDetails.harvestDetails);
+
+    if (this.batchDetails.harvestDetails) {
+      this.batchDetailKeys = Object.keys(
+        this.batchDetails.harvestDetails
+      ).filter((key) => key !== "dateTimeSubmitted");
     }
+
+    if (this.batchDetails.credentialSubject) {
+      this.batchDetailKeys = Object.keys(
+        this.batchDetails.credentialSubject
+      ).filter((key) => key !== "dateTimeSubmitted");
+    }
+
+    console.log(this.batchDetailKeys);
   }
 
   minimize() {

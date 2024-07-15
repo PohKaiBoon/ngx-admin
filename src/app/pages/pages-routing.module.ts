@@ -8,6 +8,9 @@ import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component
 import { BatchDetailsComponent } from "./batch-details/batch-details.component";
 import { AuthGuard } from "../services/auth-service/auth-guard";
 import { NewBatchComponent } from "./new-batch/new-batch.component";
+import { ProcessorInformationComponent } from "./processor-information/processor-information.component";
+import { QrTraceabilityComponent } from "./qr-traceability/qr-traceability.component";
+import { IssueCertComponent } from "./issue-cert/issue-cert.component";
 
 const routes: Routes = [
   {
@@ -26,6 +29,17 @@ const routes: Routes = [
       {
         path: "new-batch",
         component: NewBatchComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "issue-cert",
+        component: IssueCertComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: "trackntrace", component: QrTraceabilityComponent },
+      {
+        path: "processor-information",
+        component: ProcessorInformationComponent,
         canActivate: [AuthGuard],
       },
       {

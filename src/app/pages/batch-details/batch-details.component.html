@@ -50,7 +50,13 @@
       <button nbButton status="primary" [disabled]="showOrganicCertButton()">
         Add Organic Certification
       </button>
-      <button nbButton status="primary">Add Processor Information</button>
+      <button
+        nbButton
+        status="primary"
+        (click)="navigateToProcessorInformationPage()"
+      >
+        Add Processor Information
+      </button>
       <button nbButton status="primary">Add Retailer Information</button>
       <button nbButton status="primary">Add Other Information</button>
     </div>
@@ -77,19 +83,19 @@
           </div></nb-alert
         >
         <div *ngFor="let info of batchDetails?.traceabilityInfo">
-          <label class="label">{{
-            info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
-          }}</label>
-          <nb-alert>
-            <div class="test">
-              <div style="max-width: 80%">
-                {{ info.activity[0].message }}
+            <label class="label">{{
+              info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
+            }}</label>
+            <nb-alert>
+              <div class="test">
+                <div style="max-width: 80%">
+                  {{ info.activity[0].message }}
+                </div>
+                <button nbButton status="info" (click)="openInfo(info)">
+                  View Information
+                </button>
               </div>
-              <button nbButton status="info" (click)="openInfo(info)">
-                View Information
-              </button>
-            </div>
-          </nb-alert>
+            </nb-alert>
         </div>
         <!-- <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton nbStepperNext>next</button> -->

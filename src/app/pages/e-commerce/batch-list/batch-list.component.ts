@@ -151,44 +151,11 @@ export class BatchListComponent implements OnDestroy, OnInit {
   };
 
   openPromptPasswordDialog() {
-    this.dialogService
-      .open(DialogPasswordPromptComponent)
-      .onClose.subscribe((password) => {
-        if (password) {
-          const headers = { "Content-Type": "application/json" };
-          this.http
-            .post(
-              this.apiUrl + "/api/v1/generateAddress",
-              JSON.stringify({
-                alias: this.userService.getUserAlias(),
-                password: password,
-              }),
-              { headers }
-            )
-            .subscribe({
-              next: (response: NewAddress) => {
-                console.log(response);
-                this.router.navigate(["/pages/new-batch"], {
-                  queryParams: { id: response.address },
-                });
-                this.toastService.showToast(
-                  "success",
-                  "Success",
-                  "New Batch ID generated: " + response.address
-                );
-              },
-              error: (err) => {
-                console.log(err);
-                const errorMsg: string = err?.error?.error;
-                this.toastService.showToast(
-                  "danger",
-                  "Error",
-                  errorMsg.replace(/`/g, "").toUpperCase()
-                );
-              },
-            });
-        }
-      });
+    this.router.navigate(["/pages/new-batch"]);
+  }
+
+  openIssueCertComponent() {
+    this.router.navigate(["/pages/issue-cert"]);
   }
 
   fetchAllBatches() {

@@ -1,12 +1,36 @@
 <nb-card>
   <nb-card-header>
     <h6>Batches</h6>
-    <button nbButton [status]="'success'" hero (click)="openPromptPasswordDialog()">Add New Batch <nb-icon icon="plus"></nb-icon></button>
+    <button
+      nbButton
+      [status]="'success'"
+      hero
+      (click)="openPromptPasswordDialog()"
+    >
+      Add New Batch <nb-icon icon="plus"></nb-icon>
+    </button>
   </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source">
-    </ng2-smart-table>
+    <ng2-smart-table [settings]="settings" [source]="source"> </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    <h6>Certifications</h6>
+    <button
+      nbButton
+      [status]="'success'"
+      hero
+      (click)="openIssueCertComponent()"
+    >
+      Issue Certifications <nb-icon icon="plus"></nb-icon>
+    </button>
+  </nb-card-header>
+
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source"> </ng2-smart-table>
   </nb-card-body>
 </nb-card>
 
@@ -20,5 +44,3 @@
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
-
-

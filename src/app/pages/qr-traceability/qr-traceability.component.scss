@@ -1,0 +1,29 @@
+:host ::ng-deep nb-accordion {
+  margin-bottom: 20px;
+}
+
+:host ::ng-deep nb-stepper .header {
+  margin-top: 10px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.test {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+}

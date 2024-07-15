@@ -19,11 +19,11 @@ import { ShowcaseDialogComponent } from "../modal-overlays/dialog/showcase-dialo
 import { OrganicCertifiedDialogComponent } from "../modal-overlays/dialog/organic-certified-dialog/organic-certified-dialog.component";
 
 @Component({
-  selector: "ngx-batch-details",
-  templateUrl: "./batch-details.component.html",
-  styleUrls: ["./batch-details.component.scss"],
+  selector: "ngx-qr-traceability",
+  templateUrl: "./qr-traceability.component.html",
+  styleUrls: ["./qr-traceability.component.scss"],
 })
-export class BatchDetailsComponent implements OnInit {
+export class QrTraceabilityComponent implements OnInit {
   @ViewChild("contentTemplate", { static: true })
   contentTemplate: TemplateRef<any>;
   @ViewChild("disabledEsc", { read: TemplateRef, static: true })

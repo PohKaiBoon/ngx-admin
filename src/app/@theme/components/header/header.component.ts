@@ -11,6 +11,9 @@ import { LayoutService } from "../../../@core/utils";
 import { map, takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { Clipboard } from "@angular/cdk/clipboard";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { BatchDetails } from "../../../@core/data/batch-model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "ngx-header",
@@ -22,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userPictureOnly: boolean = false;
   user: any;
   did: string;
+  status: string = "primary";
 
   currentTheme = "default";
 
@@ -34,7 +38,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
-    private cb: Clipboard
+    private cb: Clipboard,
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -76,5 +82,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   copyToClipboard(): void {
     this.cb.copy(this.did);
+  }
+
+  callDetails(input: HTMLInputElement) {
+    const url = `http://localhost:3000/api/v1/details`;
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("address", input.value);
+
+    this.http.get<BatchDetails>(url, { params: queryParams }).subscribe(
+      () => {
+        this.router.navigate(["/pages/details"], {
+          queryParams: { address: input.value },
+        });
+        this.status = "primary";
+        input.value = "";
+      },
+      () => {
+        this.status = "danger";
+        input.value = "";
+      }
+    );
   }
 }
