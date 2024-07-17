@@ -6,11 +6,12 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { NbDialogService } from "@nebular/theme";
 import { ToastService } from "../../services/toast-service/toast-service.service";
 import { DialogPasswordPromptComponent } from "../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
 import { UserData } from "../../@core/data/users";
+import { OrganicCertificationCredential } from "../../@core/data/batch-model";
 
 @Component({
   selector: "ngx-issue-cert",
@@ -33,17 +34,75 @@ export class IssueCertComponent implements OnInit {
   prevLatitude: number;
   prevLongitude: number;
   isLatLongSameAsPrevious: boolean = false;
-  newId: string = "";
+  outputID: string = "";
+  isReadMode: boolean = false;
   certificateForm: UntypedFormGroup;
+  fetchedData: OrganicCertificationCredential;
 
   apiUrl: string = "http://localhost:3000";
 
   ngOnInit(): void {
+    this.createFormControls();
+
     this.route.queryParams.subscribe((params) => {
-      this.newId = params["id"];
+      this.outputID = params["output"];
+      this.isReadMode = params["readonly"] === "true";
     });
 
-    this.createFormControls();
+    if (this.outputID) {
+      this.fetchCredential();
+    }
+  }
+
+  fetchCredential() {
+    const url = `http://localhost:3000/api/v1/credentialOutput`;
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("output", this.outputID);
+    queryParams = queryParams.append("issuerDid", this.userService.getDid());
+
+    this.http.get<any>(url, { params: queryParams }).subscribe(
+      (data: OrganicCertificationCredential) => {
+        this.fetchedData = data;
+        this.certificateForm.patchValue({
+          entityCertified: {
+            name: this.fetchedData.credentialSubject.certificateDetails
+              .entityCertified.name,
+            address:
+              this.fetchedData.credentialSubject.certificateDetails
+                .entityCertified.address,
+            entityDid:
+              this.fetchedData.credentialSubject.certificateDetails
+                .entityCertified.entityDid,
+          },
+          certificationStandard:
+            this.fetchedData.credentialSubject.certificateDetails
+              .certificationStandard,
+          certificateType:
+            this.fetchedData.credentialSubject.certificateDetails
+              .certificateType,
+          lastInspectionDate:
+            this.fetchedData.credentialSubject.certificateDetails
+              .lastInspectionDate,
+          anniversaryDate:
+            this.fetchedData.credentialSubject.certificateDetails
+              .anniversaryDate,
+          scope: this.fetchedData.credentialSubject.certificateDetails.scope,
+          authorizedBy: {
+            name: this.fetchedData.credentialSubject.certificateDetails
+              .authorizedBy.name,
+            title:
+              this.fetchedData.credentialSubject.certificateDetails.authorizedBy
+                .title,
+          },
+        });
+
+        this.certificateForm.disable();
+      },
+      (error) => {
+        this.router.navigate(["/pages/miscellaneous/500"]);
+      }
+    );
   }
 
   onBlur() {
@@ -106,7 +165,6 @@ export class IssueCertComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     const payload = {
       did: this.userService.getDid(),
       certificateDetails: this.certificateForm.value,

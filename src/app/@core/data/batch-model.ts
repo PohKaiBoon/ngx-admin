@@ -11,6 +11,14 @@ export interface Activities {
   type?: string;
 }
 
+export interface Certificates {
+  issuedTo?: string;
+  type?: string;
+  dateTimeCreated: string;
+  dateTimeUpdated: string;
+  id: string;
+}
+
 export interface BatchDetails {
   harvestDetails?: HarvestDetails;
   metadata?: Metadata;
@@ -95,10 +103,45 @@ export interface TraceabilityInfo {
   vcString?: string;
   dateTime?: string;
   activity?: Activity[];
-  issuer?: string
+  issuer?: string;
 }
 
 export interface Activity {
   message?: string;
   dateTime?: string;
+}
+
+export interface OrganicCertificationCredential {
+  "@context"?: string;
+  type?: string[];
+  credentialSubject?: CredentialSubject;
+  issuer?: string;
+  issuanceDate?: string;
+  expirationDate?: string;
+}
+
+export interface CredentialSubject {
+  id?: string;
+  certificateDetails?: CertificateDetails;
+}
+
+export interface CertificateDetails {
+  entityCertified?: EntityCertified;
+  certificationStandard?: string;
+  certificateType?: string;
+  lastInspectionDate?: string;
+  anniversaryDate?: string;
+  scope?: string;
+  authorizedBy?: AuthorizedBy;
+}
+
+export interface EntityCertified {
+  name?: string;
+  address?: string;
+  entityDid?: string;
+}
+
+export interface AuthorizedBy {
+  name?: string;
+  title?: string;
 }

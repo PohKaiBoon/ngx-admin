@@ -198,8 +198,52 @@
         </nb-card-body>
       </nb-card>
     </form>
-    <div class="button">
+    <div class="button" *ngIf="!isReadMode">
       <button (click)="onSubmit()" nbButton status="primary">Submit</button>
     </div>
   </div>
 </div>
+
+<nb-card *ngIf="isReadMode && fetchedData">
+  <nb-card-header>Issued Certificate Details</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="label">Expiration Date:</label>
+          <p>
+            {{ fetchedData?.expirationDate | date : "dd MMM yyyy, hh:mm a" }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="label">Issuance Date:</label>
+          <p>
+            {{ fetchedData?.expirationDate | date : "dd MMM yyyy, hh:mm a" }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="label">Issuer:</label>
+          <p>{{ fetchedData.issuer }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label class="label">Type:</label>
+          <ul>
+            <li *ngFor="let type of fetchedData.type">{{ type }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
