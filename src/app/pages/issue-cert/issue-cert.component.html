@@ -7,7 +7,7 @@
         <nb-card-body>
           <div formGroupName="entityCertified">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <div class="form-group">
                   <label for="entityDid" class="label">Entity DID</label>
                   <input
@@ -222,7 +222,7 @@
         <div class="form-group">
           <label class="label">Issuance Date:</label>
           <p>
-            {{ fetchedData?.expirationDate | date : "dd MMM yyyy, hh:mm a" }}
+            {{ fetchedData?.issuanceDate | date : "dd MMM yyyy, hh:mm a" }}
           </p>
         </div>
       </div>
