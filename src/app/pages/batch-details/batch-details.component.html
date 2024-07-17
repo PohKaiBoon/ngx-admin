@@ -103,7 +103,9 @@
         <!-- <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton nbStepperNext>next</button> -->
       </nb-step>
-      <nb-step label="Processor" *ngIf="batchDetails?.traceabilityInfo"
+      <nb-step
+        label="Processor"
+        *ngIf="batchDetails?.traceabilityInfo.length > 0"
         ><div *ngFor="let info of batchDetails?.traceabilityInfo">
           <label class="label">{{
             info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
@@ -120,7 +122,10 @@
           </nb-alert>
         </div></nb-step
       >
-      <nb-step label="Retailer" *ngIf="batchDetails?.retailerTraceabilityInfo">
+      <nb-step
+        label="Retailer"
+        *ngIf="batchDetails?.retailerTraceabilityInfo.length > 0"
+      >
         <div *ngFor="let info of batchDetails?.retailerTraceabilityInfo">
           <label class="label">{{
             info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
