@@ -24,7 +24,9 @@ export interface BatchDetails {
   metadata?: Metadata;
   activity?: Activity[];
   batchId?: string;
-  traceabilityInfo: TraceabilityInfo[];
+  createdBy?: string;
+  traceabilityInfo?: TraceabilityInfo[];
+  retailerTraceabilityInfo?: TraceabilityInfo[];
 }
 
 export interface HarvestDetails {

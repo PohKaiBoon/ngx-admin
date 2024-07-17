@@ -20,12 +20,25 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <qrcode
+          [qrdata]="qrCode"
+          [width]="200"
+          [errorCorrectionLevel]="'M'"
+        ></qrcode>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="inputFirstName" class="label">Batch Created By</label>
+          <div>
+            {{ batchDetails?.createdBy }}
+          </div>
+          <img src="{{ imageUrl }}" alt="Certified Organic" height="80px" />
+        </div>
+      </div>
       <div></div>
-      <qrcode
-        [qrdata]="qrCode"
-        [width]="200"
-        [errorCorrectionLevel]="'M'"
-      ></qrcode>
     </div>
     <!-- <div class="row">
       <div class="col-sm-6">
@@ -47,18 +60,23 @@
   </nb-card-header>
   <nb-card-body>
     <div class="button-container">
-      <button nbButton status="primary" [disabled]="showOrganicCertButton()">
-        Add Organic Certification
-      </button>
       <button
         nbButton
         status="primary"
         (click)="navigateToProcessorInformationPage()"
+        [disabled]="batchDetails?.traceabilityInfo.length > 1"
       >
         Add Processor Information
       </button>
-      <button nbButton status="primary">Add Retailer Information</button>
-      <button nbButton status="primary">Add Other Information</button>
+      <button
+        nbButton
+        status="primary"
+        (click)="navigateToRetailerInformationPage()"
+        [disabled]="batchDetails?.retailerTraceabilityInfo.length > 0"
+      >
+        Add Retailer Information
+      </button>
+      <button nbButton status="primary">Generate Wine Bottles QR Labels</button>
     </div>
   </nb-card-body>
 </nb-card>
@@ -67,7 +85,7 @@
     <h6>Traceability Information</h6>
   </nb-card-header>
   <nb-card-body>
-    <nb-stepper orientation="vertical" class="mt-10">
+    <nb-stepper orientation="horizontal" class="mt-10">
       <nb-step label="Farmer">
         <label class="label">{{
           batchDetails?.metadata?.updated | date : "dd MMM yyyy, hh:mm a"
@@ -82,67 +100,43 @@
             </button>
           </div></nb-alert
         >
-        <div *ngFor="let info of batchDetails?.traceabilityInfo">
-            <label class="label">{{
-              info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
-            }}</label>
-            <nb-alert>
-              <div class="test">
-                <div style="max-width: 80%">
-                  {{ info.activity[0].message }}
-                </div>
-                <button nbButton status="info" (click)="openInfo(info)">
-                  View Information
-                </button>
-              </div>
-            </nb-alert>
-        </div>
         <!-- <button nbButton disabled nbStepperNext>prev</button>
         <button nbButton nbStepperNext>next</button> -->
       </nb-step>
-      <!-- <nb-step label="Second step">
-        <h3>Step content #2</h3>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis.
-          Sed vehicula fringilla rutrum. Nullam sed ornare magna. Mauris vitae
-          laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla
-          placerat dui eu sapien pellentesque, eu placerat leo luctus. Cras
-          pharetra blandit fermentum.
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
-      </nb-step>
-      <nb-step label="Third step">
-        <h3>Step content #3</h3>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis.
-          Curabitur egestas sem a ipsum bibendum, sit amet fringilla orci
-          efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar
-          magna, quis viverra ex. Lorem ipsum dolor sit amet, consectetur
-          adipiscing elit. Praesent metus turpis, commodo vel placerat quis,
-          lobortis in ligula.
-        </p>
-        <p class="lorem">
-          Curabitur luctus mattis risus nec condimentum. Donec at dui turpis.
-          Sed vehicula fringilla rutrum. Nullam sed ornare magna. Mauris vitae
-          laoreet diam. Mauris fermentum ligula at lacinia semper. Nulla
-          placerat dui eu sapien pellentesque, eu placerat leo luctus. Cras
-          pharetra blandit fermentum.
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
-      </nb-step>
-      <nb-step label="Fourth step">
-        <h3>Step content #4</h3>
-        <p class="lorem">
-          Proin varius accumsan semper. Praesent consequat tincidunt sagittis.
-          Curabitur egestas sem a ipsum bibendum, sit amet fringilla orci
-          efficitur. Nam bibendum lectus ut viverra tristique. Fusce eu pulvinar
-          magna, quis viverra ex.
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton disabled nbStepperNext>next</button>
-      </nb-step> -->
+      <nb-step label="Processor" *ngIf="batchDetails?.traceabilityInfo"
+        ><div *ngFor="let info of batchDetails?.traceabilityInfo">
+          <label class="label">{{
+            info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
+          }}</label>
+          <nb-alert>
+            <div class="test">
+              <div style="max-width: 80%">
+                {{ info.activity[0].message }}
+              </div>
+              <button nbButton status="info" (click)="openInfo(info)">
+                View Information
+              </button>
+            </div>
+          </nb-alert>
+        </div></nb-step
+      >
+      <nb-step label="Retailer" *ngIf="batchDetails?.retailerTraceabilityInfo">
+        <div *ngFor="let info of batchDetails?.retailerTraceabilityInfo">
+          <label class="label">{{
+            info.activity[0].dateTime | date : "dd MMM yyyy, hh:mm a"
+          }}</label>
+          <nb-alert>
+            <div class="test">
+              <div style="max-width: 80%">
+                {{ info.activity[0].message }}
+              </div>
+              <button nbButton status="info" (click)="openInfo(info)">
+                View Information
+              </button>
+            </div>
+          </nb-alert>
+        </div></nb-step
+      >
     </nb-stepper>
   </nb-card-body>
 </nb-card>

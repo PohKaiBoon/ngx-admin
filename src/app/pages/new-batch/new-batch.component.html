@@ -15,7 +15,23 @@
                   fullWidth
                   id="farmName"
                   formControlName="farmName"
+                  [status]="
+                    farmInfo.get('farmName').invalid &&
+                    farmInfo.get('farmName').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="farmInfo.get('farmName').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    farmInfo.get('farmName').invalid &&
+                    farmInfo.get('farmName').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -35,6 +51,15 @@
                   "
                   (blur)="farmInfo.get('farmAddress').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    farmInfo.get('farmAddress').invalid &&
+                    farmInfo.get('farmAddress').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -76,7 +101,23 @@
                   fullWidth
                   id="farmerName"
                   formControlName="farmerName"
+                  [status]="
+                    farmInfo.get('farmerName').invalid &&
+                    farmInfo.get('farmerName').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="farmInfo.get('farmerName').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    farmInfo.get('farmerName').invalid &&
+                    farmInfo.get('farmerName').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -88,7 +129,23 @@
                   fullWidth
                   id="farmerContact"
                   formControlName="farmerContact"
+                  [status]="
+                    farmInfo.get('farmerContact').invalid &&
+                    farmInfo.get('farmerContact').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="farmInfo.get('farmerContact').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    farmInfo.get('farmerContact').invalid &&
+                    farmInfo.get('farmerContact').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -127,7 +184,23 @@
                   fullWidth
                   id="vineyardId"
                   formControlName="vineyardId"
+                  [status]="
+                    vineyardDetails.get('vineyardId').invalid &&
+                    vineyardDetails.get('vineyardId').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="vineyardDetails.get('vineyardId').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    vineyardDetails.get('vineyardId').invalid &&
+                    vineyardDetails.get('vineyardId').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -139,7 +212,23 @@
                   fullWidth
                   id="grapeVariety"
                   formControlName="grapeVariety"
+                  [status]="
+                    vineyardDetails.get('grapeVariety').invalid &&
+                    vineyardDetails.get('grapeVariety').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="vineyardDetails.get('grapeVariety').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    vineyardDetails.get('grapeVariety').invalid &&
+                    vineyardDetails.get('grapeVariety').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -153,7 +242,23 @@
                   fullWidth
                   id="plantingDate"
                   formControlName="plantingDate"
+                  [status]="
+                    vineyardDetails.get('plantingDate').invalid &&
+                    vineyardDetails.get('plantingDate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="vineyardDetails.get('plantingDate').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    vineyardDetails.get('plantingDate').invalid &&
+                    vineyardDetails.get('plantingDate').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -165,7 +270,23 @@
                   fullWidth
                   id="soilType"
                   formControlName="soilType"
+                  [status]="
+                    vineyardDetails.get('soilType').invalid &&
+                    vineyardDetails.get('soilType').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="vineyardDetails.get('soilType').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    vineyardDetails.get('soilType').invalid &&
+                    vineyardDetails.get('soilType').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -190,7 +311,25 @@
                   fullWidth
                   id="irrigation"
                   formControlName="irrigation"
+                  [status]="
+                    cultivationPractices.get('irrigation').invalid &&
+                    cultivationPractices.get('irrigation').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices.get('irrigation').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('irrigation').invalid &&
+                    cultivationPractices.get('irrigation').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -204,7 +343,27 @@
                   fullWidth
                   id="fertilizationType"
                   formControlName="fertilizationType"
+                  [status]="
+                    cultivationPractices.get('fertilizationType').invalid &&
+                    cultivationPractices.get('fertilizationType').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices
+                      .get('fertilizationType')
+                      .markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('fertilizationType').invalid &&
+                    cultivationPractices.get('fertilizationType').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -220,7 +379,27 @@
                   fullWidth
                   id="fertilizationQuantity"
                   formControlName="fertilizationQuantity"
+                  [status]="
+                    cultivationPractices.get('fertilizationQuantity').invalid &&
+                    cultivationPractices.get('fertilizationQuantity').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices
+                      .get('fertilizationQuantity')
+                      .markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('fertilizationQuantity').invalid &&
+                    cultivationPractices.get('fertilizationQuantity').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -234,7 +413,27 @@
                   fullWidth
                   id="fertilizationDate"
                   formControlName="fertilizationDate"
+                  [status]="
+                    cultivationPractices.get('fertilizationDate').invalid &&
+                    cultivationPractices.get('fertilizationDate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices
+                      .get('fertilizationDate')
+                      .markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('fertilizationDate').invalid &&
+                    cultivationPractices.get('fertilizationDate').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -248,7 +447,23 @@
                   fullWidth
                   id="pesticide"
                   formControlName="pesticide"
+                  [status]="
+                    cultivationPractices.get('pesticide').invalid &&
+                    cultivationPractices.get('pesticide').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="cultivationPractices.get('pesticide').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('pesticide').invalid &&
+                    cultivationPractices.get('pesticide').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -262,7 +477,29 @@
                   fullWidth
                   id="pesticideApplicationDate"
                   formControlName="pesticideApplicationDate"
+                  [status]="
+                    cultivationPractices.get('pesticideApplicationDate')
+                      .invalid &&
+                    cultivationPractices.get('pesticideApplicationDate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices
+                      .get('pesticideApplicationDate')
+                      .markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('pesticideApplicationDate')
+                      .invalid &&
+                    cultivationPractices.get('pesticideApplicationDate').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -274,7 +511,25 @@
                   fullWidth
                   id="compliance"
                   formControlName="compliance"
+                  [status]="
+                    cultivationPractices.get('compliance').invalid &&
+                    cultivationPractices.get('compliance').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    cultivationPractices.get('compliance').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('compliance').invalid &&
+                    cultivationPractices.get('compliance').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -286,7 +541,23 @@
                   fullWidth
                   id="pruning"
                   formControlName="pruning"
+                  [status]="
+                    cultivationPractices.get('pruning').invalid &&
+                    cultivationPractices.get('pruning').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="cultivationPractices.get('pruning').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    cultivationPractices.get('pruning').invalid &&
+                    cultivationPractices.get('pruning').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -311,7 +582,25 @@
                   fullWidth
                   id="weatherDate"
                   formControlName="weatherDate"
+                  [status]="
+                    environmentalConditions.get('weatherDate').invalid &&
+                    environmentalConditions.get('weatherDate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    environmentalConditions.get('weatherDate').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    environmentalConditions.get('weatherDate').invalid &&
+                    environmentalConditions.get('weatherDate').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -323,7 +612,25 @@
                   fullWidth
                   id="temperature"
                   formControlName="temperature"
+                  [status]="
+                    environmentalConditions.get('temperature').invalid &&
+                    environmentalConditions.get('temperature').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    environmentalConditions.get('temperature').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    environmentalConditions.get('temperature').invalid &&
+                    environmentalConditions.get('temperature').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -335,7 +642,25 @@
                   fullWidth
                   id="rainfall"
                   formControlName="rainfall"
+                  [status]="
+                    environmentalConditions.get('rainfall').invalid &&
+                    environmentalConditions.get('rainfall').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    environmentalConditions.get('rainfall').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    environmentalConditions.get('rainfall').invalid &&
+                    environmentalConditions.get('rainfall').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -347,7 +672,25 @@
                   fullWidth
                   id="humidity"
                   formControlName="humidity"
+                  [status]="
+                    environmentalConditions.get('humidity').invalid &&
+                    environmentalConditions.get('humidity').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    environmentalConditions.get('humidity').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    environmentalConditions.get('humidity').invalid &&
+                    environmentalConditions.get('humidity').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -372,7 +715,23 @@
                   fullWidth
                   id="harvestDate"
                   formControlName="harvestDate"
+                  [status]="
+                    harvestInfo.get('harvestDate').invalid &&
+                    harvestInfo.get('harvestDate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="harvestInfo.get('harvestDate').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    harvestInfo.get('harvestDate').invalid &&
+                    harvestInfo.get('harvestDate').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -384,7 +743,23 @@
                   fullWidth
                   id="harvestMethod"
                   formControlName="harvestMethod"
+                  [status]="
+                    harvestInfo.get('harvestMethod').invalid &&
+                    harvestInfo.get('harvestMethod').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="harvestInfo.get('harvestMethod').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    harvestInfo.get('harvestMethod').invalid &&
+                    harvestInfo.get('harvestMethod').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -395,7 +770,23 @@
                   fullWidth
                   id="laborDetails"
                   formControlName="laborDetails"
+                  [status]="
+                    harvestInfo.get('laborDetails').invalid &&
+                    harvestInfo.get('laborDetails').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="harvestInfo.get('laborDetails').markAsTouched()"
                 ></textarea>
+                <div
+                  *ngIf="
+                    harvestInfo.get('laborDetails').invalid &&
+                    harvestInfo.get('laborDetails').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -407,7 +798,23 @@
                   fullWidth
                   id="yield"
                   formControlName="yield"
+                  [status]="
+                    harvestInfo.get('yield').invalid &&
+                    harvestInfo.get('yield').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="harvestInfo.get('yield').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    harvestInfo.get('yield').invalid &&
+                    harvestInfo.get('yield').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -429,9 +836,25 @@
                 <textarea
                   nbInput
                   fullWidth
-                  id="laborDetails"
+                  id="remarks"
                   formControlName="remarks"
+                  [status]="
+                    remarks.get('remarks').invalid &&
+                    remarks.get('remarks').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="remarks.get('remarks').markAsTouched()"
                 ></textarea>
+                <div
+                  *ngIf="
+                    remarks.get('remarks').invalid &&
+                    remarks.get('remarks').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -453,9 +876,25 @@
                 <textarea
                   nbInput
                   fullWidth
-                  id="laborDetails"
+                  id="remarks"
                   formControlName="remarks"
+                  [status]="
+                    postHarvestHandling.get('remarks').invalid &&
+                    postHarvestHandling.get('remarks').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="postHarvestHandling.get('remarks').markAsTouched()"
                 ></textarea>
+                <div
+                  *ngIf="
+                    postHarvestHandling.get('remarks').invalid &&
+                    postHarvestHandling.get('remarks').touched
+                  "
+                  class="item text-danger"
+                >
+                  Field is required.
+                </div>
               </div>
             </div>
           </div>
@@ -466,5 +905,6 @@
 </div>
 
 <div class="button">
+  <button (click)="clearForm()" nbButton status="danger" style="margin-right: 20px">Clear</button>
   <button (click)="onSubmit()" nbButton status="primary">Submit</button>
 </div>

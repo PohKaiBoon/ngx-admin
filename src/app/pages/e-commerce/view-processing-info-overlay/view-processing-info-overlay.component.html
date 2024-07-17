@@ -1,0 +1,158 @@
+<nb-accordion class="content">
+  <!-- Date Time Submitted -->
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+      Date Time Submitted
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <div>{{ batchDetails.dateTimeSubmitted }}</div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <!-- Processor Info -->
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+      Processor Info
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <div *ngIf="batchDetails?.processorInfo as processorInfo">
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="label">Processor Name</label>
+            <div>{{ processorInfo.processorName }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Processor Address</label>
+            <div>{{ processorInfo.processorAddress }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Name in Charge</label>
+            <div>{{ processorInfo.nameInCharge }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Name in Charge Contact</label>
+            <div>{{ processorInfo.nameInChargeContact }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Latitude</label>
+            <div>{{ processorInfo.latitude }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Longitude</label>
+            <div>{{ processorInfo.longitude }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Type</label>
+            <div>{{ processorInfo.type }}</div>
+          </div>
+        </div>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <!-- Remarks -->
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+      Remarks
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <div *ngIf="batchDetails?.remarks as remarks">
+        <label class="label">Remarks</label>
+        <div>{{ remarks.remarks }}</div>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <!-- Wine Production Form -->
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+      Wine Production Form
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <!-- Crush Grapes -->
+      <div *ngIf="batchDetails?.wineProductionForm?.crushGrapes as crushGrapes" class="mb-3">
+        <strong>Crush Grapes</strong>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="label">Date Crushed</label>
+            <div>{{ crushGrapes.dateCrushed }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Method</label>
+            <div>{{ crushGrapes.method }}</div>
+          </div>
+          <div class="col-sm-12">
+            <label class="label">Remarks</label>
+            <div>{{ crushGrapes.remarks }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fermentation -->
+      <div *ngIf="batchDetails?.wineProductionForm?.fermentation as fermentation" class="mb-3">
+        <strong>Fermentation</strong>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="label">Start Date</label>
+            <div>{{ fermentation.startDate }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">End Date</label>
+            <div>{{ fermentation.endDate }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Temperature Range</label>
+            <div>{{ fermentation.temperatureRange }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Sugar Level</label>
+            <div>{{ fermentation.sugarLevel }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Yeast Type</label>
+            <div>{{ fermentation.yeastType }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">CO2 Management</label>
+            <div>{{ fermentation.carbonDioxideManagement }}</div>
+          </div>
+          <div class="col-sm-12">
+            <label class="label">Remarks</label>
+            <div>{{ fermentation.remarks }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aging -->
+      <div *ngIf="batchDetails?.wineProductionForm?.aging as aging" class="mb-3">
+        <strong>Aging</strong>
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="label">Start Date</label>
+            <div>{{ aging.startDate }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">End Date</label>
+            <div>{{ aging.endDate }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Container Type</label>
+            <div>{{ aging.containerType }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Temperature Range</label>
+            <div>{{ aging.temperatureRange }}</div>
+          </div>
+          <div class="col-sm-6">
+            <label class="label">Humidity Level</label>
+            <div>{{ aging.humidityLevel }}</div>
+          </div>
+          <div class="col-sm-12">
+            <label class="label">Remarks</label>
+            <div>{{ aging.remarks }}</div>
+          </div>
+        </div>
+      </div>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

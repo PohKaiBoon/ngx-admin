@@ -11,6 +11,7 @@ import { NewBatchComponent } from "./new-batch/new-batch.component";
 import { ProcessorInformationComponent } from "./processor-information/processor-information.component";
 import { QrTraceabilityComponent } from "./qr-traceability/qr-traceability.component";
 import { IssueCertComponent } from "./issue-cert/issue-cert.component";
+import { RetailerInformationComponent } from "./retailer-information/retailer-information.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,11 @@ const routes: Routes = [
       {
         path: "processor-information",
         component: ProcessorInformationComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "retailer-information",
+        component: RetailerInformationComponent,
         canActivate: [AuthGuard],
       },
       {

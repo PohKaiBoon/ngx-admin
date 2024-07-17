@@ -8,9 +8,9 @@ import {
 } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { NbDialogService } from "@nebular/theme";
-import { ToastService } from "../../services/toast-service/toast-service.service";
 import { DialogPasswordPromptComponent } from "../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
 import { UserData } from "../../@core/data/users";
+import { ToastService } from "../../services/toast-service/toast-service.service";
 
 @Component({
   selector: "ngx-new-batch",
@@ -87,56 +87,75 @@ export class NewBatchComponent implements OnInit {
 
   createFormControls(): void {
     this.farmInfo = this.fb.group({
-      farmName: [""],
+      farmName: ["", Validators.required],
       farmAddress: ["", Validators.required],
-      farmerName: [""],
-      farmerContact: [""],
+      farmerName: ["", Validators.required],
+      farmerContact: ["", Validators.required],
       latitude: [{ value: "", disabled: true }],
       longitude: [{ value: "", disabled: true }],
     });
 
     this.vineyardDetails = this.fb.group({
-      vineyardId: [""],
-      grapeVariety: [""],
-      plantingDate: [""],
-      soilType: [""],
+      vineyardId: ["", Validators.required],
+      grapeVariety: ["", Validators.required],
+      plantingDate: ["", Validators.required],
+      soilType: ["", Validators.required],
     });
 
     this.cultivationPractices = this.fb.group({
-      irrigation: [""],
-      fertilizationType: [""],
-      fertilizationQuantity: [""],
-      fertilizationDate: [""],
-      pesticide: [""],
-      pesticideApplicationDate: [""],
-      compliance: [""],
-      pruning: [""],
+      irrigation: ["", Validators.required],
+      fertilizationType: ["", Validators.required],
+      fertilizationQuantity: ["", Validators.required],
+      fertilizationDate: ["", Validators.required],
+      pesticide: ["", Validators.required],
+      pesticideApplicationDate: ["", Validators.required],
+      compliance: ["", Validators.required],
+      pruning: ["", Validators.required],
     });
 
     this.environmentalConditions = this.fb.group({
-      weatherDate: [""],
-      temperature: [""],
-      rainfall: [""],
-      humidity: [""],
+      weatherDate: ["", Validators.required],
+      temperature: ["", Validators.required],
+      rainfall: ["", Validators.required],
+      humidity: ["", Validators.required],
     });
 
     this.harvestInfo = this.fb.group({
-      harvestDate: [""],
-      harvestMethod: [""],
-      laborDetails: [""],
-      yield: [""],
+      harvestDate: ["", Validators.required],
+      harvestMethod: ["", Validators.required],
+      laborDetails: ["", Validators.required],
+      yield: ["", Validators.required],
     });
 
     this.postHarvestHandling = this.fb.group({
-      remarks: [""],
+      remarks: ["", Validators.required],
     });
 
     this.remarks = this.fb.group({
-      remarks: [""],
+      remarks: ["", Validators.required],
     });
   }
 
   onSubmit(): void {
+    if (
+      this.farmInfo.invalid ||
+      this.vineyardDetails.invalid ||
+      this.cultivationPractices.invalid ||
+      this.environmentalConditions.invalid ||
+      this.harvestInfo.invalid ||
+      this.postHarvestHandling.invalid ||
+      this.remarks.invalid
+    ) {
+      this.farmInfo.markAllAsTouched();
+      this.vineyardDetails.markAllAsTouched();
+      this.cultivationPractices.markAllAsTouched();
+      this.environmentalConditions.markAllAsTouched();
+      this.harvestInfo.markAllAsTouched();
+      this.postHarvestHandling.markAllAsTouched();
+      this.remarks.markAllAsTouched();
+      return;
+    }
+
     const formData = {
       farmInfo: this.farmInfo.getRawValue(),
       vineyardDetails: this.vineyardDetails.value,
@@ -189,5 +208,15 @@ export class NewBatchComponent implements OnInit {
             });
         }
       });
+  }
+
+  clearForm(): void {
+    this.farmInfo.reset();
+    this.vineyardDetails.reset();
+    this.cultivationPractices.reset();
+    this.environmentalConditions.reset();
+    this.harvestInfo.reset();
+    this.postHarvestHandling.reset();
+    this.remarks.reset();
   }
 }

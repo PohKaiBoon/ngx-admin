@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card *ngIf="hasBatchData">
   <nb-card-header>
     <h6>Batches</h6>
     <button
@@ -16,7 +16,7 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card *ngIf="hasCertData">
   <nb-card-header>
     <h6>Certifications</h6>
     <button
@@ -34,7 +34,7 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card *ngIf="hasActivitiesData">
   <nb-card-header>
     <h6>Activities</h6>
   </nb-card-header>

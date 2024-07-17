@@ -47,6 +47,9 @@ export class BatchListComponent implements OnDestroy, OnInit {
   activitySource: LocalDataSource = new LocalDataSource();
   certSource: LocalDataSource = new LocalDataSource();
   apiUrl: string = "http://localhost:3000";
+  hasBatchData: boolean= false;
+  hasCertData: boolean= false;
+  hasActivitiesData: boolean= false;
 
   constructor(
     private themeService: NbThemeService,
@@ -234,6 +237,9 @@ export class BatchListComponent implements OnDestroy, OnInit {
                 "dd MMM yyyy, hh:mm a"
               );
             });
+            if (response && response.length > 0) {
+              this.hasBatchData = true;
+            }
             this.source.load(response);
           }
         },
@@ -265,6 +271,9 @@ export class BatchListComponent implements OnDestroy, OnInit {
               });
             });
             console.log(response);
+            if (response && response.length > 0) {
+              this.hasActivitiesData = true;
+            }
             this.activitySource.load(response);
           }
         },
@@ -299,6 +308,9 @@ export class BatchListComponent implements OnDestroy, OnInit {
               );
             });
             console.log(response);
+            if (response && response.length > 0) {
+              this.hasCertData = true;
+            }
             this.certSource.load(response);
           }
         },

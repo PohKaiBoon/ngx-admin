@@ -14,11 +14,11 @@ import { distinctUntilChanged } from "rxjs/operators";
 import { ToastService } from "../../services/toast-service/toast-service.service";
 
 @Component({
-  selector: "ngx-processor-information",
-  templateUrl: "./processor-information.component.html",
-  styleUrls: ["./processor-information.component.scss"],
+  selector: "ngx-retailer-information",
+  templateUrl: "./retailer-information.component.html",
+  styleUrls: ["./retailer-information.component.scss"],
 })
-export class ProcessorInformationComponent implements OnInit {
+export class RetailerInformationComponent implements OnInit {
   constructor(
     private geolocationService: GeolocationService,
     private route: ActivatedRoute,
@@ -35,7 +35,7 @@ export class ProcessorInformationComponent implements OnInit {
   prevLongitude: number;
   isLatLongSameAsPrevious: boolean = false;
   newId: string = "";
-  processorInfo: UntypedFormGroup;
+  retailerDetailsForm: UntypedFormGroup;
   wineProductionForm: UntypedFormGroup;
   receivedDeliveryForm: UntypedFormGroup;
   remarks: UntypedFormGroup;
@@ -58,23 +58,8 @@ export class ProcessorInformationComponent implements OnInit {
     });
 
     this.createFormControls();
-    this.createSubscriptions();
   }
 
-  createSubscriptions(): void {
-    this.processorInfo.controls.type.valueChanges
-      .pipe(distinctUntilChanged())
-      .subscribe((value) => {
-        if (value && !this.shouldShowNextSection) {
-          this.shouldShowNextSection = true;
-        }
-        if (value === "ReceivedDelivery") {
-          this.shouldShowReceivedDeliveryForm = true;
-        } else {
-          this.shouldShowReceivedDeliveryForm = false;
-        }
-      });
-  }
 
   getUserLocation(): void {
     this.geolocationService
@@ -85,8 +70,12 @@ export class ProcessorInformationComponent implements OnInit {
 
         console.log(`Latitude: ${this.latitude}, Longitude: ${this.longitude}`);
 
-        this.processorInfo.controls.latitude.patchValue(this.latitude);
-        this.processorInfo.controls.longitude.patchValue(this.longitude);
+        this.retailerDetailsForm
+          .get("retailerInfo.latitude")
+          .patchValue(this.latitude);
+        this.retailerDetailsForm
+          .get("retailerInfo.longitude")
+          .patchValue(this.longitude);
 
         this.prevLatitude = this.latitude;
         this.prevLongitude = this.longitude;
@@ -108,80 +97,38 @@ export class ProcessorInformationComponent implements OnInit {
   }
 
   createFormControls(): void {
-    this.processorInfo = this.fb.group({
-      processorName: [""],
-      processorAddress: ["", Validators.required],
-      nameInCharge: [""],
-      nameInChargeContact: [""],
-      latitude: [{ value: "", disabled: true }],
-      longitude: [{ value: "", disabled: true }],
-      type: [""],
-    });
-
-    this.receivedDeliveryForm = this.fb.group({
-      dateReceived: ["", Validators.required],
-      quantityReceived: ["", Validators.required],
-      condition: ["", Validators.required],
-      temperatureUponArrival: ["", Validators.required],
-      truckId: ["", Validators.required],
-      driverName: ["", Validators.required],
-      licensePlate: ["", Validators.required],
-    });
-
-    this.wineProductionForm = this.fb.group({
-      crushGrapes: this.fb.group({
-        dateCrushed: ["", Validators.required],
-        method: ["", Validators.required],
+    this.retailerDetailsForm = this.fb.group({
+      retailerInfo: this.fb.group({
+        retailerName: ["", Validators.required],
+        retailerAddress: ["", Validators.required],
+        nameInCharge: ["", Validators.required],
+        nameInChargeContact: ["", Validators.required],
+        latitude: [{ value: "", disabled: true }],
+        longitude: [{ value: "", disabled: true }],
+      }),
+      receivedBatchInfo: this.fb.group({
+        dateReceived: ["", Validators.required],
+        quantityReceived: ["", Validators.required],
+      }),
+      storageConditions: this.fb.group({
+        temperature: ["", Validators.required],
+        humidity: ["", Validators.required],
+        location: ["", Validators.required],
+        storageType: ["", Validators.required],
+      }),
+      remarks: this.fb.group({
         remarks: ["", Validators.required],
       }),
-      fermentation: this.fb.group({
-        startDate: ["", Validators.required],
-        endDate: ["", Validators.required],
-        temperatureRange: ["", Validators.required],
-        sugarLevel: ["", Validators.required],
-        yeastType: ["", Validators.required],
-        carbonDioxideManagement: ["", Validators.required],
-        remarks: ["", Validators.required],
-      }),
-      aging: this.fb.group({
-        startDate: ["", Validators.required],
-        endDate: ["", Validators.required],
-        containerType: ["", Validators.required],
-        temperatureRange: ["", Validators.required],
-        humidityLevel: ["", Validators.required],
-        remarks: ["", Validators.required],
-      }),
-    });
-
-    this.remarks = this.fb.group({
-      remarks: ["", Validators.required],
     });
   }
 
   onSubmit(): void {
-    let formData: any = {
-      processorInfo: this.processorInfo.getRawValue(),
-      remarks: this.remarks.value,
-      dateTimeSubmitted: new Date().toISOString(),
-    };
-
-    if (this.processorInfo.get("type").value === "ProcessingInformation") {
-      formData = {
-        ...formData,
-        wineProductionForm: this.wineProductionForm.value,
-      };
-    } else {
-      formData = {
-        ...formData,
-        receivedDeliveryForm: this.receivedDeliveryForm.value,
-      };
-    }
-
     const payload = {
       issuerDid: this.userService.getDid(),
-      processorDetails: formData,
+      retailerDetails: this.retailerDetailsForm.getRawValue(),
       batchAddress: this.newId,
       password: "",
+      type: "ReceivedRetailer"
     };
 
     console.log(payload);
@@ -221,5 +168,9 @@ export class ProcessorInformationComponent implements OnInit {
             });
         }
       });
+  }
+
+  clearForm(): void {
+    this.retailerDetailsForm.reset();
   }
 }

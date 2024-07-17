@@ -1,0 +1,483 @@
+<div class="row">
+  <!-- Processor Info Form -->
+  <div class="col-md-12">
+    <form [formGroup]="retailerDetailsForm" class="step-container">
+      <nb-card>
+        <nb-card-header>1. Retailer Info</nb-card-header>
+        <nb-card-body formGroupName="retailerInfo">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="batchId" class="label">Batch ID</label>
+                <p>{{ newId }}</p>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="retailerName" class="label">Retailer Name</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="retailerName"
+                  formControlName="retailerName"
+                  [status]="
+                    retailerDetailsForm.get('retailerInfo.retailerName')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.retailerName').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('retailerInfo.retailerName')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('retailerInfo.retailerName')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.retailerName').touched
+                  "
+                  class="text-danger"
+                >
+                  Retailer Name is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="retailerAddress" class="label"
+                  >Retailer Address</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="retailerAddress"
+                  formControlName="retailerAddress"
+                  [status]="
+                    retailerDetailsForm.get('retailerInfo.retailerAddress')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.retailerAddress')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('retailerInfo.retailerAddress')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('retailerInfo.retailerAddress')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.retailerAddress')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Retailer Address is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="latitude" class="label">Latitude</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="latitude"
+                  formControlName="latitude"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="longitude" class="label">Longitude</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="longitude"
+                  formControlName="longitude"
+                  disabled="true"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="nameInCharge" class="label">Name In Charge</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="nameInCharge"
+                  formControlName="nameInCharge"
+                  [status]="
+                    retailerDetailsForm.get('retailerInfo.nameInCharge')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.nameInCharge').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('retailerInfo.nameInCharge')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('retailerInfo.nameInCharge')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.nameInCharge').touched
+                  "
+                  class="text-danger"
+                >
+                  Name In Charge is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="nameInChargeContact" class="label"
+                  >Name In Charge Contact</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="nameInChargeContact"
+                  formControlName="nameInChargeContact"
+                  [status]="
+                    retailerDetailsForm.get('retailerInfo.nameInChargeContact')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.nameInChargeContact')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('retailerInfo.nameInChargeContact')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('retailerInfo.nameInChargeContact')
+                      .invalid &&
+                    retailerDetailsForm.get('retailerInfo.nameInChargeContact')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Name In Charge Contact is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <button (click)="getUserLocation()" nbButton>
+                    Update Coordinates
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <nb-alert status="warning" *ngIf="isLatLongSameAsPrevious">
+                    Location updated. No changes detected.
+                  </nb-alert>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <div class="col-md-12">
+    <form [formGroup]="retailerDetailsForm" class="step-container">
+      <nb-card>
+        <nb-card-header>2. Received Batch Info</nb-card-header>
+        <nb-card-body formGroupName="receivedBatchInfo">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="dateReceived" class="label">Date Received</label>
+                <input
+                  type="date"
+                  nbInput
+                  fullWidth
+                  id="dateReceived"
+                  formControlName="dateReceived"
+                  [status]="
+                    retailerDetailsForm.get('receivedBatchInfo.dateReceived')
+                      .invalid &&
+                    retailerDetailsForm.get('receivedBatchInfo.dateReceived')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('receivedBatchInfo.dateReceived')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('receivedBatchInfo.dateReceived')
+                      .invalid &&
+                    retailerDetailsForm.get('receivedBatchInfo.dateReceived')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Date Received is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="quantityReceived" class="label"
+                  >Quantity Received</label
+                >
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="quantityReceived"
+                  formControlName="quantityReceived"
+                  [status]="
+                    retailerDetailsForm.get(
+                      'receivedBatchInfo.quantityReceived'
+                    ).invalid &&
+                    retailerDetailsForm.get(
+                      'receivedBatchInfo.quantityReceived'
+                    ).touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('receivedBatchInfo.quantityReceived')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get(
+                      'receivedBatchInfo.quantityReceived'
+                    ).invalid &&
+                    retailerDetailsForm.get(
+                      'receivedBatchInfo.quantityReceived'
+                    ).touched
+                  "
+                  class="text-danger"
+                >
+                  Quantity Received is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <!-- Storage Conditions Form -->
+  <div class="col-md-12">
+    <form [formGroup]="retailerDetailsForm" class="step-container">
+      <nb-card>
+        <nb-card-header>3. Storage Conditions</nb-card-header>
+        <nb-card-body formGroupName="storageConditions">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="temperature" class="label">Temperature</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="temperature"
+                  formControlName="temperature"
+                  [status]="
+                    retailerDetailsForm.get('storageConditions.temperature')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.temperature')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('storageConditions.temperature')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('storageConditions.temperature')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.temperature')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Temperature is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="humidity" class="label">Humidity</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="humidity"
+                  formControlName="humidity"
+                  [status]="
+                    retailerDetailsForm.get('storageConditions.humidity')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.humidity')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('storageConditions.humidity')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('storageConditions.humidity')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.humidity')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Humidity is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="location" class="label">Location</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="location"
+                  formControlName="location"
+                  [status]="
+                    retailerDetailsForm.get('storageConditions.location')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.location')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('storageConditions.location')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('storageConditions.location')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.location')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Location is required.
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="storageType" class="label">Storage Type</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="storageType"
+                  formControlName="storageType"
+                  [status]="
+                    retailerDetailsForm.get('storageConditions.storageType')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.storageType')
+                      .touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    retailerDetailsForm
+                      .get('storageConditions.storageType')
+                      .markAsTouched()
+                  "
+                />
+                <div
+                  *ngIf="
+                    retailerDetailsForm.get('storageConditions.storageType')
+                      .invalid &&
+                    retailerDetailsForm.get('storageConditions.storageType')
+                      .touched
+                  "
+                  class="text-danger"
+                >
+                  Storage Type is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+
+  <!-- Remarks Form -->
+  <div class="col-md-12">
+    <form [formGroup]="retailerDetailsForm" class="step-container">
+      <nb-card>
+        <nb-card-header>4. Remarks</nb-card-header>
+        <nb-card-body formGroupName="remarks">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="remarks" class="label">Remarks</label>
+                <textarea
+                  nbInput
+                  fullWidth
+                  id="laborDetails"
+                  formControlName="remarks"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </form>
+  </div>
+</div>
+<div class="button">
+  <button (click)="clearForm()" nbButton status="danger" style="margin-right: 20px">Clear</button>
+  <button (click)="onSubmit()" nbButton status="primary">Submit</button>
+</div>

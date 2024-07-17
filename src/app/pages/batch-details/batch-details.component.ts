@@ -13,10 +13,11 @@ import {
 } from "../../@core/data/batch-model";
 import { NbDialogService, NbWindowService } from "@nebular/theme";
 import { ViewTraceabilityInfoOverlayComponent } from "../e-commerce/view-traceability-info-overlay/view-traceability-info-overlay.component";
-import { ToastService } from "../../services/toast-service/toast-service.service";
 import { VcDidPromptComponent } from "../modal-overlays/dialog/vc-did-prompt/vc-did-prompt.component";
 import { ShowcaseDialogComponent } from "../modal-overlays/dialog/showcase-dialog/showcase-dialog.component";
 import { OrganicCertifiedDialogComponent } from "../modal-overlays/dialog/organic-certified-dialog/organic-certified-dialog.component";
+import { ToastService } from "../../services/toast-service/toast-service.service";
+import { ViewProcessingInfoOverlayComponent } from "../e-commerce/view-processing-info-overlay/view-processing-info-overlay.component";
 
 @Component({
   selector: "ngx-batch-details",
@@ -38,6 +39,8 @@ export class BatchDetailsComponent implements OnInit {
   position = { lat: 1.359872, lng: 103.9499264 };
   harverstDetailsKey: string[] = [];
   qrCode: string;
+  imageUrl: string =
+    "https://localfoodconnect.org.au/wp-content/uploads/2017/06/aco.jpg";
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -89,6 +92,7 @@ export class BatchDetailsComponent implements OnInit {
       },
       (error) => {
         console.error("Error fetching harvest details", error);
+        this.router.navigate(["/pages/miscellaneous/500"]);
       }
     );
   }
@@ -114,6 +118,12 @@ export class BatchDetailsComponent implements OnInit {
         this.openVcVerification(info);
         break;
       case "ReceivedDelivery":
+        this.openDeliveryVerification(info);
+        break;
+      case "ProcessingInformation":
+        this.openProcessingVerification(info);
+        break;
+      case "ReceivedRetailer":
         this.openDeliveryVerification(info);
         break;
       default:
@@ -214,8 +224,43 @@ export class BatchDetailsComponent implements OnInit {
       });
   }
 
+  openProcessingVerification(info: TraceabilityInfo) {
+    const headers = { "Content-Type": "application/json" };
+    this.http
+      .post(
+        this.apiUrl + "/api/v1/verifyCredential",
+        JSON.stringify({
+          issuerDid: `did:iota:snd:${info.issuer}`,
+          credentialJwt: info.vcString,
+        }),
+        { headers }
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.windowService.open(ViewProcessingInfoOverlayComponent, {
+            title: `View Processing Information`,
+            context: response,
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastService.showToast(
+            "danger",
+            "Error",
+            "Failed to verify credential."
+          );
+        },
+      });
+  }
+
   navigateToProcessorInformationPage() {
     this.router.navigate(["/pages/processor-information"], {
+      queryParams: { id: this.batchDetails?.batchId },
+    });
+  }
+
+  navigateToRetailerInformationPage() {
+    this.router.navigate(["/pages/retailer-information"], {
       queryParams: { id: this.batchDetails?.batchId },
     });
   }

@@ -70,6 +70,8 @@ import { ProcessorInformationComponent } from "../processor-information/processo
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { QrTraceabilityComponent } from "../qr-traceability/qr-traceability.component";
 import { IssueCertModule } from "../issue-cert/issue-cert.module";
+import { ViewProcessingInfoOverlayComponent } from "./view-processing-info-overlay/view-processing-info-overlay.component";
+import { RetailerInformationComponent } from "../retailer-information/retailer-information.component";
 @NgModule({
   imports: [
     ThemeModule,
@@ -97,7 +99,7 @@ import { IssueCertModule } from "../issue-cert/issue-cert.module";
     FormsModule,
     ReactiveFormsModule,
     NbFormFieldModule,
-    NbInputModule
+    NbInputModule,
   ],
   declarations: [
     ECommerceComponent,
@@ -135,11 +137,13 @@ import { IssueCertModule } from "../issue-cert/issue-cert.module";
     BatchListButtonComponent,
     BatchDetailsComponent,
     ProcessorInformationComponent,
+    RetailerInformationComponent,
     CapitalisePipe,
     ObjectKeysPipe,
     KeyValuePipe,
     ViewTraceabilityInfoOverlayComponent,
-    QrTraceabilityComponent
+    ViewProcessingInfoOverlayComponent,
+    QrTraceabilityComponent,
   ],
   providers: [CountryOrdersMapService],
 })
