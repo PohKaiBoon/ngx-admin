@@ -15,7 +15,7 @@ export interface Certificates {
   issuedTo?: string;
   type?: string;
   dateTimeCreated: string;
-  dateTimeUpdated: string;
+  dateTimeExpire?: string;
   id: string;
 }
 
