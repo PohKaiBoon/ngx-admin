@@ -171,9 +171,6 @@ export class IssueCertComponent implements OnInit {
       password: "",
     };
 
-    console.log(payload);
-    return;
-
     this.dialogService
       .open(DialogPasswordPromptComponent)
       .onClose.subscribe((password) => {
@@ -182,7 +179,7 @@ export class IssueCertComponent implements OnInit {
           const headers = { "Content-Type": "application/json" };
           this.http
             .post(
-              this.apiUrl + "/api/v1/submitBatch",
+              this.apiUrl + "/api/v1/issueOrganicCertification",
               JSON.stringify(payload),
               { headers }
             )
@@ -193,18 +190,17 @@ export class IssueCertComponent implements OnInit {
                 this.toastService.showToast(
                   "success",
                   "Success",
-                  "New Batch Added Successfully!",
+                  "New Certification Added Successfully!",
                   5000
                 );
               },
               error: (err) => {
                 console.log(err);
-                // const errorMsg: string = err?.error?.payload?.error;
-                // this.toastService.showToast(
-                //   "danger",
-                //   "Error",
-                //   errorMsg.toUpperCase()
-                // );
+                this.toastService.showToast(
+                  "danger",
+                  "Error",
+                  "Unexpected error occurred. Please try again later."
+                );
               },
             });
         }

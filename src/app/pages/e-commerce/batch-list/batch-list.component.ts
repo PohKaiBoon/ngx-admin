@@ -302,8 +302,8 @@ export class BatchListComponent implements OnDestroy, OnInit {
                 "dd MMM yyyy, hh:mm a"
               );
 
-              certs.dateTimeUpdated = this.datePipe.transform(
-                certs.dateTimeUpdated,
+              certs.dateTimeExpire = this.datePipe.transform(
+                certs.dateTimeExpire,
                 "dd MMM yyyy, hh:mm a"
               );
             });
