@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <form [formGroup]="processorInfo" class="step-container">
       <nb-card>
-        <nb-card-header>1. Processor Info</nb-card-header>
+        <nb-card-header>1. Processor Information</nb-card-header>
         <nb-card-body>
           <div class="row">
             <div class="col-sm-6">
@@ -31,6 +31,15 @@
                       >Processing Information</nb-option
                     >
                   </nb-select>
+                  <div
+                    *ngIf="
+                      processorInfo.get('type').invalid &&
+                      processorInfo.get('type').touched
+                    "
+                    class="text-danger"
+                  >
+                    Traceability Information Type is required.
+                  </div>
                 </div>
               </div>
             </div>
@@ -43,7 +52,23 @@
                   fullWidth
                   id="processorName"
                   formControlName="processorName"
+                  [status]="
+                    processorInfo.get('processorName').invalid &&
+                    processorInfo.get('processorName').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="processorInfo.get('processorName').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    processorInfo.get('processorName').invalid &&
+                    processorInfo.get('processorName').touched
+                  "
+                  class="text-danger"
+                >
+                  Processor Name is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -57,7 +82,23 @@
                   fullWidth
                   id="processorAddress"
                   formControlName="processorAddress"
+                  [status]="
+                    processorInfo.get('processorAddress').invalid &&
+                    processorInfo.get('processorAddress').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="processorInfo.get('processorAddress').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    processorInfo.get('processorAddress').invalid &&
+                    processorInfo.get('processorAddress').touched
+                  "
+                  class="text-danger"
+                >
+                  Processor Address is required.
+                </div>
               </div>
             </div>
           </div>
@@ -99,7 +140,23 @@
                   fullWidth
                   id="nameInCharge"
                   formControlName="nameInCharge"
+                  [status]="
+                    processorInfo.get('nameInCharge').invalid &&
+                    processorInfo.get('nameInCharge').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="processorInfo.get('nameInCharge').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    processorInfo.get('nameInCharge').invalid &&
+                    processorInfo.get('nameInCharge').touched
+                  "
+                  class="text-danger"
+                >
+                  Name in-charge is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -113,7 +170,25 @@
                   fullWidth
                   id="nameInChargeContact"
                   formControlName="nameInChargeContact"
+                  [status]="
+                    processorInfo.get('nameInChargeContact').invalid &&
+                    processorInfo.get('nameInChargeContact').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    processorInfo.get('nameInChargeContact').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    processorInfo.get('nameInChargeContact').invalid &&
+                    processorInfo.get('nameInChargeContact').touched
+                  "
+                  class="text-danger"
+                >
+                  Name in-charge Contact is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-12">
@@ -157,7 +232,25 @@
                   fullWidth
                   id="quantityReceived"
                   formControlName="quantityReceived"
+                  [status]="
+                    receivedDeliveryForm.get('quantityReceived').invalid &&
+                    receivedDeliveryForm.get('quantityReceived').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    receivedDeliveryForm.get('quantityReceived').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('quantityReceived').invalid &&
+                    receivedDeliveryForm.get('quantityReceived').touched
+                  "
+                  class="text-danger"
+                >
+                  Quantity Received is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -169,7 +262,23 @@
                   fullWidth
                   id="condition"
                   formControlName="condition"
+                  [status]="
+                    receivedDeliveryForm.get('condition').invalid &&
+                    receivedDeliveryForm.get('condition').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="receivedDeliveryForm.get('condition').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('condition').invalid &&
+                    receivedDeliveryForm.get('condition').touched
+                  "
+                  class="text-danger"
+                >
+                  Condition is required.
+                </div>
               </div>
             </div>
           </div>
@@ -185,7 +294,29 @@
                   fullWidth
                   id="temperatureUponArrival"
                   formControlName="temperatureUponArrival"
+                  [status]="
+                    receivedDeliveryForm.get('temperatureUponArrival')
+                      .invalid &&
+                    receivedDeliveryForm.get('temperatureUponArrival').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    receivedDeliveryForm
+                      .get('temperatureUponArrival')
+                      .markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('temperatureUponArrival')
+                      .invalid &&
+                    receivedDeliveryForm.get('temperatureUponArrival').touched
+                  "
+                  class="text-danger"
+                >
+                  Temperature Upon Arrival is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -197,23 +328,27 @@
                   fullWidth
                   id="truckId"
                   formControlName="truckId"
+                  [status]="
+                    receivedDeliveryForm.get('truckId').invalid &&
+                    receivedDeliveryForm.get('truckId').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="receivedDeliveryForm.get('truckId').markAsTouched()"
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('truckId').invalid &&
+                    receivedDeliveryForm.get('truckId').touched
+                  "
+                  class="text-danger"
+                >
+                  Truck ID is required.
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label for="truckId" class="label">Truck ID</label>
-                <input
-                  type="text"
-                  nbInput
-                  fullWidth
-                  id="truckId"
-                  formControlName="truckId"
-                />
-              </div>
-            </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="driverName" class="label">Driver Name</label>
@@ -223,7 +358,25 @@
                   fullWidth
                   id="driverName"
                   formControlName="driverName"
+                  [status]="
+                    receivedDeliveryForm.get('driverName').invalid &&
+                    receivedDeliveryForm.get('driverName').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    receivedDeliveryForm.get('driverName').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('driverName').invalid &&
+                    receivedDeliveryForm.get('driverName').touched
+                  "
+                  class="text-danger"
+                >
+                  Driver Name is required.
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
@@ -235,7 +388,25 @@
                   fullWidth
                   id="licensePlate"
                   formControlName="licensePlate"
+                  [status]="
+                    receivedDeliveryForm.get('licensePlate').invalid &&
+                    receivedDeliveryForm.get('licensePlate').touched
+                      ? 'danger'
+                      : 'basic'
+                  "
+                  (blur)="
+                    receivedDeliveryForm.get('licensePlate').markAsTouched()
+                  "
                 />
+                <div
+                  *ngIf="
+                    receivedDeliveryForm.get('licensePlate').invalid &&
+                    receivedDeliveryForm.get('licensePlate').touched
+                  "
+                  class="text-danger"
+                >
+                  License Plate is required.
+                </div>
               </div>
             </div>
           </div>
@@ -508,6 +679,13 @@
   </div>
 </div>
 <div class="button">
-  <button nbButton status="danger" style="margin-right: 20px">Clear</button>
+  <button
+    (click)="clearForm()"
+    nbButton
+    status="danger"
+    style="margin-right: 20px"
+  >
+    Clear
+  </button>
   <button (click)="onSubmit()" nbButton status="primary">Submit</button>
 </div>

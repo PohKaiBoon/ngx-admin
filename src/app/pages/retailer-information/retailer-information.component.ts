@@ -60,7 +60,6 @@ export class RetailerInformationComponent implements OnInit {
     this.createFormControls();
   }
 
-
   getUserLocation(): void {
     this.geolocationService
       .getCurrentLocation()
@@ -128,11 +127,9 @@ export class RetailerInformationComponent implements OnInit {
       retailerDetails: this.retailerDetailsForm.getRawValue(),
       batchAddress: this.newId,
       password: "",
-      type: "ReceivedRetailer"
+      type: "ReceivedRetailer",
     };
 
-    console.log(payload);
-    return;
     this.dialogService
       .open(DialogPasswordPromptComponent)
       .onClose.subscribe((password) => {
@@ -141,29 +138,30 @@ export class RetailerInformationComponent implements OnInit {
           const headers = { "Content-Type": "application/json" };
           this.http
             .post(
-              this.apiUrl + "/api/v1/processorTraceabilityInfo",
+              this.apiUrl + "/api/v1/retailerTraceabilityInfo",
               JSON.stringify(payload),
               { headers }
             )
             .subscribe({
               next: (response) => {
                 console.log(response);
-                this.router.navigate(["/"]);
+                this.router.navigate(["/pages/details"], {
+                  queryParams: { address: this.newId },
+                });
                 this.toastService.showToast(
                   "success",
                   "Success",
-                  "New Batch Added Successfully!",
+                  `Batch ${this.newId}  Updated Successfully!`,
                   5000
                 );
               },
               error: (err) => {
                 console.log(err);
-                // const errorMsg: string = err?.error?.payload?.error;
-                // this.toastService.showToast(
-                //   "danger",
-                //   "Error",
-                //   errorMsg.toUpperCase()
-                // );
+                this.toastService.showToast(
+                  "danger",
+                  "Error",
+                  "Unexpected error has occured. Please try again later"
+                );
               },
             });
         }

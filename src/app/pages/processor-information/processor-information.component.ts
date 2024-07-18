@@ -6,12 +6,13 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { NbDialogService } from "@nebular/theme";
 import { DialogPasswordPromptComponent } from "../modal-overlays/dialog/dialog-password-prompt/dialog-password-prompt.component";
 import { UserData } from "../../@core/data/users";
 import { distinctUntilChanged } from "rxjs/operators";
 import { ToastService } from "../../services/toast-service/toast-service.service";
+import { BatchDetails } from "../../@core/data/batch-model";
 
 @Component({
   selector: "ngx-processor-information",
@@ -59,6 +60,7 @@ export class ProcessorInformationComponent implements OnInit {
 
     this.createFormControls();
     this.createSubscriptions();
+    this.getDetails();
   }
 
   createSubscriptions(): void {
@@ -109,17 +111,16 @@ export class ProcessorInformationComponent implements OnInit {
 
   createFormControls(): void {
     this.processorInfo = this.fb.group({
-      processorName: [""],
+      processorName: ["", Validators.required],
       processorAddress: ["", Validators.required],
-      nameInCharge: [""],
-      nameInChargeContact: [""],
+      nameInCharge: ["", Validators.required],
+      nameInChargeContact: ["", Validators.required],
       latitude: [{ value: "", disabled: true }],
       longitude: [{ value: "", disabled: true }],
-      type: [""],
+      type: ["", Validators.required],
     });
 
     this.receivedDeliveryForm = this.fb.group({
-      dateReceived: ["", Validators.required],
       quantityReceived: ["", Validators.required],
       condition: ["", Validators.required],
       temperatureUponArrival: ["", Validators.required],
@@ -162,7 +163,6 @@ export class ProcessorInformationComponent implements OnInit {
     let formData: any = {
       processorInfo: this.processorInfo.getRawValue(),
       remarks: this.remarks.value,
-      dateTimeSubmitted: new Date().toISOString(),
     };
 
     if (this.processorInfo.get("type").value === "ProcessingInformation") {
@@ -184,8 +184,6 @@ export class ProcessorInformationComponent implements OnInit {
       password: "",
     };
 
-    console.log(payload);
-    return;
     this.dialogService
       .open(DialogPasswordPromptComponent)
       .onClose.subscribe((password) => {
@@ -201,25 +199,80 @@ export class ProcessorInformationComponent implements OnInit {
             .subscribe({
               next: (response) => {
                 console.log(response);
-                this.router.navigate(["/"]);
+                this.router.navigate(["/pages/details"], {
+                  queryParams: { address: this.newId },
+                });
                 this.toastService.showToast(
                   "success",
                   "Success",
-                  "New Batch Added Successfully!",
+                  `Batch ${this.newId}  Updated Successfully!`,
                   5000
                 );
               },
               error: (err) => {
                 console.log(err);
-                // const errorMsg: string = err?.error?.payload?.error;
-                // this.toastService.showToast(
-                //   "danger",
-                //   "Error",
-                //   errorMsg.toUpperCase()
-                // );
+                const errorMsg: string = err?.error?.payload?.error;
+                this.toastService.showToast(
+                  "danger",
+                  "Error",
+                  "Unexpected error has occured. Please try again later"
+                );
               },
             });
         }
       });
+  }
+
+  clearForm(): void {
+    this.processorInfo.reset();
+    this.receivedDeliveryForm.reset();
+    this.wineProductionForm.reset();
+    this.remarks.reset();
+  }
+
+  getDetails(): void {
+    const url = `http://localhost:3000/api/v1/details`;
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("address", this.newId);
+
+    this.http.get<BatchDetails>(url, { params: queryParams }).subscribe(
+      (data: BatchDetails) => {
+        if (data.traceabilityInfo.length > 0) {
+          let vc = data.traceabilityInfo[0].vcString;
+          let issuer = data.traceabilityInfo[0].issuer;
+          const headers = { "Content-Type": "application/json" };
+          this.http
+            .post(
+              this.apiUrl + "/api/v1/verifyCredential",
+              JSON.stringify({
+                issuerDid: `did:iota:snd:${issuer}`,
+                credentialJwt: vc,
+              }),
+              { headers }
+            )
+            .subscribe({
+              next: (response: any) => {
+                console.log(response);
+                if (response?.credentialSubject?.processorInfo) {
+                  this.processorInfo.patchValue(
+                    response.credentialSubject.processorInfo
+                  );
+                  this.processorInfo
+                    .get("type")
+                    .patchValue("ProcessingInformation");
+                }
+              },
+              error: (err) => {
+                console.log(err);
+              },
+            });
+        }
+      },
+      (error) => {
+        console.error("Error fetching harvest details", error);
+        this.router.navigate(["/pages/miscellaneous/500"]);
+      }
+    );
   }
 }

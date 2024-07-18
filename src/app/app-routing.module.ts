@@ -11,6 +11,7 @@ import {
 import { AuthPageComponent } from "./auth/auth-page/auth-page.component";
 import { AuthModule } from "./auth/auth-page/auth-page.module";
 import { NonAuthGuard } from "./services/auth-service/non-auth-guard";
+import { TrackTraceComponent } from "./track-trace/track-trace/track-trace.component";
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./pages/pages.module").then((m) => m.PagesModule),
   },
+  {path: "trackntrace", component: TrackTraceComponent},
   {
     path: "auth",
     component: AuthPageComponent,

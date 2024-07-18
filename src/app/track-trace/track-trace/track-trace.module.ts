@@ -1,5 +1,9 @@
-import { NgModule } from "@angular/core";
+import { ThemeModule } from '../../@theme/theme.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TrackTraceComponent } from './track-trace.component';
 import {
+  NbAccordionModule,
   NbActionsModule,
   NbAlertModule,
   NbButtonModule,
@@ -17,23 +21,17 @@ import {
   NbUserModule,
 } from "@nebular/theme";
 
-import { AuthPageComponent } from "./auth-page.component";
-import { NbAuthModule } from "@nebular/auth";
-import { ReactiveFormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { ThemeModule } from "../../@theme/theme.module";
-import { FormsRoutingModule } from "../../pages/forms/forms-routing.module";
-import { FormsModule as ngFormsModule } from "@angular/forms";
 
 @NgModule({
+  declarations: [
+    TrackTraceComponent
+  ],
   imports: [
     NbLayoutModule,
     NbIconModule,
-    NbAuthModule,
     NbCardModule,
     NbStepperModule,
     NbButtonModule,
-    ReactiveFormsModule,
     CommonModule,
     NbAlertModule,
     NbCheckboxModule,
@@ -42,12 +40,9 @@ import { FormsModule as ngFormsModule } from "@angular/forms";
     NbInputModule,
     NbActionsModule,
     NbUserModule,
-    FormsRoutingModule,
     NbSelectModule,
-    ngFormsModule,
     NbSpinnerModule,
-    NbStepperModule
-  ],
-  declarations: [AuthPageComponent],
+    NbAccordionModule
+  ]
 })
-export class AuthModule {}
+export class TrackTraceModule { }

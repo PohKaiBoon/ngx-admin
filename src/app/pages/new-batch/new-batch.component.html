@@ -867,7 +867,7 @@
   <div class="col-md-12">
     <form [formGroup]="postHarvestHandling" class="step-container">
       <nb-card>
-        <nb-card-header>6. Post-Harvest Handling</nb-card-header>
+        <nb-card-header>7. Post-Harvest Handling</nb-card-header>
         <nb-card-body>
           <div class="row">
             <div class="col-sm-12">
@@ -905,6 +905,13 @@
 </div>
 
 <div class="button">
-  <button (click)="clearForm()" nbButton status="danger" style="margin-right: 20px">Clear</button>
+  <button
+    (click)="clearForm()"
+    nbButton
+    status="danger"
+    style="margin-right: 20px"
+  >
+    Clear
+  </button>
   <button (click)="onSubmit()" nbButton status="primary">Submit</button>
 </div>

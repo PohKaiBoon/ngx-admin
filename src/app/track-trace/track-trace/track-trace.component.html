@@ -1,0 +1,230 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card *ngIf="showErrorPage">
+      <nb-card-body>
+        <div class="flex-centered col-xl-4 col-lg-6 col-md-8 col-sm-12">
+          <h2 class="title">Unexpected Error Occured</h2>
+          <small class="sub-title"
+            >Please try again later or contact the system administrator.</small
+          >
+        </div>
+      </nb-card-body>
+    </nb-card>
+    <nb-card
+      [nbSpinner]="loadingLargeGroup"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="giant"
+      *ngIf="!showErrorPage"
+    >
+      <nb-card-header>
+        <h2 class="text">Wine Journey: Trace Your Bottle</h2>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="text">
+          Welcome to IotaTrack, your window into the world of your wine. By
+          scanning the QR code, you've unlocked a detailed traceability report
+          of your purchase. Here's everything you need to know about your wine:
+        </div>
+        <nb-accordion>
+          <nb-accordion-item #item>
+            <nb-accordion-item-header>
+              <img
+                class="icon"
+                src="assets/images/harvesting.png"
+                width="30px"
+              />
+              Grapes Source
+              <div class="right-text">
+                {{ this.batchDetails?.harvestDetails?.farmInfo?.farmName }}
+                <img
+                  *ngIf="processerIsVerified"
+                  class="icon-left"
+                  src="assets/images/tickmark.png"
+                  width="20px"
+                />
+              </div>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Harvested Date</label>
+                    <div>
+                      {{
+                        batchDetails?.harvestDetails?.harvestInfo?.harvestDate
+                          | date : "dd MMM yyyy, hh:mm a"
+                      }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Vineyard Planting Date</label>
+                    <div>
+                      {{
+                        batchDetails?.harvestDetails?.vineyardDetails
+                          ?.plantingDate | date : "dd MMM yyyy, hh:mm a"
+                      }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Type of Grapes</label>
+                    <div>
+                      {{
+                        batchDetails?.harvestDetails?.vineyardDetails
+                          ?.grapeVariety
+                      }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Soil Type</label>
+                    <div>
+                      {{
+                        batchDetails?.harvestDetails?.vineyardDetails?.soilType
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <nb-alert status="success">
+                {{
+                  this.batchDetails?.harvestDetails?.farmInfo?.farmName +
+                    " is also USDA Organic Certified!"
+                }}
+              </nb-alert>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <img class="down-arrow" src="assets/images/down.png" width="40px" />
+        <nb-accordion>
+          <nb-accordion-item>
+            <nb-accordion-item-header>
+              <img
+                class="icon"
+                src="assets/images/fermentation.png"
+                width="30px"
+              />
+              Processed By
+              <div class="right-text">
+                {{
+                  this.traceabilityInfo[0]?.credentialSubject?.processorInfo
+                    ?.processorName
+                }}
+                <img
+                  *ngIf="processerIsVerified"
+                  class="icon-left"
+                  src="assets/images/tickmark.png"
+                  width="20px"
+                />
+              </div>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Date Received</label>
+                    <div>
+                      {{
+                        traceabilityInfo[0]?.issuanceDate
+                          | date : "dd MMM yyyy, hh:mm a"
+                      }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Quantity Received</label>
+                    <div>
+                      {{
+                        retailerInfo[0]?.credentialSubject?.receivedBatchInfo
+                          .quantityReceived
+                      }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Remarks</label>
+                    <div>
+                      {{ retailerInfo[0]?.credentialSubject?.remarks.remarks }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Location</label>
+                    <div>
+                      {{
+                        retailerInfo[0]?.credentialSubject?.storageConditions
+                          .location
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <img class="down-arrow" src="assets/images/down.png" width="40px" />
+        <nb-accordion>
+          <nb-accordion-item>
+            <nb-accordion-item-header>
+              <img class="icon" src="assets/images/super.png" width="30px" />
+              Delivered to store on
+              <div class="right-text">
+                {{
+                  this.retailerInfo[0]?.issuanceDate
+                    | date : "dd MMM yyyy, hh:mm a"
+                }}
+                <img
+                  *ngIf="retailerIsVerified"
+                  class="icon-left"
+                  src="assets/images/tickmark.png"
+                  width="20px"
+                />
+              </div>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Date Received</label>
+                    <div>
+                      {{
+                        retailerInfo[0]?.credentialSubject?.receivedBatchInfo
+                          .dateReceived
+                      }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Quantity Received</label>
+                    <div>
+                      {{
+                        retailerInfo[0]?.credentialSubject?.receivedBatchInfo
+                          .quantityReceived
+                      }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Remarks</label>
+                    <div>
+                      {{ retailerInfo[0]?.credentialSubject?.remarks.remarks }}
+                    </div>
+                  </div>
+                  <div class="col-sm-6 down-arrow">
+                    <label class="label">Location</label>
+                    <div>
+                      {{
+                        retailerInfo[0]?.credentialSubject?.storageConditions
+                          .location
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </nb-card-body>
+      <h6 class="text">Thank you for your purchase!</h6>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
