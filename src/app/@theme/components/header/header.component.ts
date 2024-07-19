@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeTheme(themeName: string) {}
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, "menu-sidebar");
+    this.sidebarService.toggle(false, "menu-sidebar");
     this.layoutService.changeLayoutSize();
 
     return false;

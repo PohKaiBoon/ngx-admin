@@ -1,3 +1,4 @@
+import { QRCodeOverlayComponent } from './../e-commerce/qr-code-overlay/qr-code-overlay.component';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import {
@@ -262,6 +263,14 @@ export class BatchDetailsComponent implements OnInit {
   navigateToRetailerInformationPage() {
     this.router.navigate(["/pages/retailer-information"], {
       queryParams: { id: this.batchDetails?.batchId },
+    });
+  }
+
+  generateQRLabels() {
+    console.log(`${window.location.origin}/trackntrace?address=${this.address}`);
+    this.windowService.open(QRCodeOverlayComponent, {
+      title: `Generated QR for Wine Labels`,
+      context: `${window.location.origin}/trackntrace?address=${this.address}`,
     });
   }
 }

@@ -72,6 +72,7 @@ import { QrTraceabilityComponent } from "../qr-traceability/qr-traceability.comp
 import { IssueCertModule } from "../issue-cert/issue-cert.module";
 import { ViewProcessingInfoOverlayComponent } from "./view-processing-info-overlay/view-processing-info-overlay.component";
 import { RetailerInformationComponent } from "../retailer-information/retailer-information.component";
+import { QRCodeOverlayComponent } from "./qr-code-overlay/qr-code-overlay.component";
 @NgModule({
   imports: [
     ThemeModule,
@@ -143,6 +144,7 @@ import { RetailerInformationComponent } from "../retailer-information/retailer-i
     KeyValuePipe,
     ViewTraceabilityInfoOverlayComponent,
     ViewProcessingInfoOverlayComponent,
+    QRCodeOverlayComponent,
     QrTraceabilityComponent,
   ],
   providers: [CountryOrdersMapService],

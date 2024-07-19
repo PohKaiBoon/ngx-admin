@@ -14,7 +14,7 @@ export class TrackTraceComponent implements OnInit {
   address: string;
   loadingLargeGroup: boolean = false;
   showErrorPage: boolean = false;
-  apiUrl: string = "http://localhost:3000";
+  apiUrl: string = "https://rmnxcz46-3000.asse.devtunnels.ms"
 
   traceabilityInfo = [];
   processerIsVerified: boolean = false;
@@ -31,7 +31,7 @@ export class TrackTraceComponent implements OnInit {
 
   getHarvestDetails(): void {
     this.loadingLargeGroup = true;
-    const url = `http://localhost:3000/api/v1/details`;
+    const url = `https://rmnxcz46-3000.asse.devtunnels.ms/api/v1/details`;
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append("address", this.address);

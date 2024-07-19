@@ -80,6 +80,7 @@
         nbButton
         status="primary"
         [disabled]="batchDetails?.retailerTraceabilityInfo.length > 0"
+        (click)="generateQRLabels()"
       >
         Generate Wine Bottles QR Labels
       </button>
